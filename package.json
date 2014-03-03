@@ -12,10 +12,7 @@
   "author": "Pascal Hertleif <killercup@gmail.com> (http://pascalhertleif.de/)",
   "license": "MIT",
   "dependencies": {
-    "highland": "~1.9.0",
-    "react": "0.9.0",
-    "d3": "^3.4.2",
-    "lodash": "^2.4.1"
+    "highland": "~1.9.0"
   },
   "devDependencies": {
     "coffeeify": "~0.6.0",

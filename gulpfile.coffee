@@ -14,6 +14,7 @@ PATH =
   libsEntry: "#{SRC}/app/libs.coffee"
   styles: "#{SRC}/styles/index.scss"
   static: "#{SRC}/**/*.html"
+  bower: 'bower_components/'
 
 LIBS = require('./src/app/libs')
 
@@ -34,7 +35,18 @@ gulp.task 'scriptLibs', ->
   .pipe browserify
     transform: ['coffeeify']
     extensions: ['.coffee']
-    require: LIBS
+    require: ['highland']
+    shim:
+      react:
+        path: "#{PATH.bower}react/react-with-addons.min.js"
+        exports: null
+      d3:
+        path: "#{PATH.bower}d3/d3.min.js"
+        exports: 'd3'
+      lodash:
+        path: "#{PATH.bower}lodash/dist/lodash.min.js"
+        exports: '_'
+        alias: 'lodash'
   .pipe concat('libs.js')
   # .pipe uglify
   #   preserveComments: 'some'
