@@ -17,7 +17,7 @@ getDistribution = (responses, aspect) ->
 
 stack = React.createClass
   render: ->
-    (div {}, [
+    (div {className: "chart chart-stacked"}, [
       (h2 {}, @props.aspect)
       (Stacked {
         distribution: getDistribution(@props.responses, @props.aspect),
@@ -32,7 +32,7 @@ module.exports = React.createClass
       .flatten()
       .value()
 
-    (div {}, [
+    (section {}, [
       (stack {responses: responses, aspect: "Did you shower today?"})
       (stack {responses: responses, aspect: "How did you sleep?"})
       (stack {responses: responses, aspect: "Are you working?"})

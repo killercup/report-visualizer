@@ -28,7 +28,7 @@ module.exports = React.createClass
       l(@props.distribution).map (num, title) =>
         height = @props.height * (num / answerCount)
 
-        label = (text {x: 0, y: offset + 15}, title)
+        label = (text {x: 5, y: offset + 15}, title)
 
         bar = (Bar {
           width: @props.width

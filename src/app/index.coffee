@@ -18,18 +18,19 @@ layout = React.createClass
     @replaceProps snapshots: data.snapshots
     @setState hasData: true
 
-  clearCache: ->
+  clearCache: (event) ->
+    event.preventDefault()
     data._clear()
     window.location.reload()
 
   render: ->
     if @state.hasData
       (section {id: 'main'}, [
-        (p {}, "#{@props.snapshots?.length} snapshots loaded.")
-        (require('./views/stacks') {snapshots: @props.snapshots})
         (p {}, [
-          (a {onClick: @clearCache}, 'Clear Cache')
+          "#{@props.snapshots?.length} snapshots loaded. "
+          (a {href: '#clear', onClick: @clearCache}, "Clear Cache")
         ])
+        (require('./views/stacks') {snapshots: @props.snapshots})
       ])
     else
       (section {id: 'main'},
