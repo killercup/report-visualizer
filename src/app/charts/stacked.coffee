@@ -24,8 +24,11 @@ module.exports = React.createClass
 
     offset = 0
 
-    (Chart {width: @props.width, height: @props.height},
-      l(@props.distribution).map (num, title) =>
+    bars = l(@props.distribution)
+      .pairs()
+      .sortBy ([title, num]) -> num
+      .reverse()
+      .map ([title, num]) =>
         height = @props.height * (num / answerCount)
 
         label = (text {x: 5, y: offset + 15}, title)
@@ -43,4 +46,7 @@ module.exports = React.createClass
           bar
           label
         ])
+
+    (Chart {width: @props.width, height: @props.height},
+      bars
     )

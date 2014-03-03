@@ -16,7 +16,14 @@ a {
 .chart {
   float: left;
   margin: 0 20px 20px;
-  min-width: 300px;
+  width: 260px;
+
+  h2 {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    min-height: 1.6em * 2;
+    padding: 0 5px;
+  }
 
   text {
     fill: #fff;
