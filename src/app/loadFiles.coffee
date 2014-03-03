@@ -48,7 +48,7 @@ module.exports = React.createClass
         data.hasData = true
         data.snapshots = items
         data._save()
-        @props.rerender()
+        @props.gotData()
       catch e
         console.error e.stack
 
