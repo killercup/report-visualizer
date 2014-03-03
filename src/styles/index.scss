@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -13,19 +18,42 @@ a {
   color: #000;
 }
 
-.chart {
+.chart-container {
   float: left;
-  margin: 0 20px 20px;
+  margin: 0 20px 30px;
   width: 260px;
 
   h2 {
     font-size: 1.2em;
     line-height: 1.6em;
     min-height: 1.6em * 2;
-    padding: 0 5px;
+    padding: 0 0 10px;
   }
+}
 
+.chart-box {
+  height: 305px;
+  overflow: auto;
+
+  svg {
+    overflow: hidden;
+  }
+}
+
+.chart-stacked {
   text {
     fill: #fff;
   }
+}
+
+.chart-vertical-line {
+  margin-bottom: 10px;
+}
+
+.chart-vertical-label {
+  margin-bottom: 5px;
+}
+
+.chart-vertical-bar {
+  background: #0b84c2;
 }

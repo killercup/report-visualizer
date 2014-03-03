@@ -26,8 +26,7 @@ module.exports = React.createClass
 
     bars = l(@props.distribution)
       .pairs()
-      .sortBy ([title, num]) -> num
-      .reverse()
+      .sortBy ([title, num]) -> -1 * num
       .map ([title, num]) =>
         height = @props.height * (num / answerCount)
 
@@ -47,6 +46,9 @@ module.exports = React.createClass
           label
         ])
 
-    (Chart {width: @props.width, height: @props.height},
+    (Chart {
+      width: @props.width, height: @props.height,
+      className: "chart chart-stacked"
+    },
       bars
     )

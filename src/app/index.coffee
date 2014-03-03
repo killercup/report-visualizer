@@ -27,10 +27,10 @@ layout = React.createClass
     if @state.hasData
       (section {id: 'main'}, [
         (p {}, [
-          "#{@props.snapshots?.length} snapshots loaded. "
+          "#{@props.snapshots.length} snapshots loaded. "
           (a {href: '#clear', onClick: @clearCache}, "Clear Cache")
         ])
-        (require('./views/stacks') {snapshots: @props.snapshots})
+        (require('./views/charts') {snapshots: @props.snapshots})
       ])
     else
       (section {id: 'main'},

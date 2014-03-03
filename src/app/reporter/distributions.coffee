@@ -12,8 +12,8 @@ exports.getDistribution = (responses, aspect) ->
   distribution: l(responses)
     .where questionPrompt: aspect
     .reduce ((memo, r) ->
-      val = r.numericResponse or r.textResponse or r.locationResponse?.text
-      val or= r.answeredOptions or r.tokens
+      val = r.answeredOptions or r.tokens
+      val or= r.numericResponse or r.textResponse or r.locationResponse?.text
       val = [val] unless l.isArray(val)
       for answer in val
         continue unless answer

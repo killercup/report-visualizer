@@ -8,4 +8,9 @@ module.exports = React.createClass
     height: 0
 
   render: ->
-    (svg {width: @props.width, height: @props.height}, @props.children)
+    (svg {
+      width: @props.width, height: @props.height,
+      className: @props.className
+    },
+      @props.children
+    )
