@@ -6,7 +6,7 @@
 ###
 
 React = require('react')
-{section, div, p, a} = React.DOM
+{section, div, h1, p, a} = React.DOM
 
 data = require('./data')
 
@@ -24,18 +24,28 @@ layout = React.createClass
     window.location.reload()
 
   render: ->
+    views = [
+      (div {className: 'top-bar'}, [
+        (h1 {}, "Reporter Report Analyser")
+      ])
+    ]
+
     if @state.hasData
-      (section {id: 'main'}, [
-        (p {}, [
-          "#{@props.snapshots.length} snapshots loaded. "
-          (a {href: '#clear', onClick: @clearCache}, "Clear Cache")
+      views = views.concat [
+        (section {className: 'box meta'}, [
+          (p {}, [
+            "#{@props.snapshots.length} snapshots loaded. "
+            (a {href: '#clear', onClick: @clearCache}, "Clear Cache")
+          ])
         ])
         (require('./views/charts') {snapshots: @props.snapshots})
-      ])
+      ]
     else
-      (section {id: 'main'},
+      views = views.concat [
         (require('./loadFiles') {gotData: @gotData})
-      )
+      ]
+
+    (section {className: 'main'}, views)
 
 renderMain = ->
   React.renderComponent(

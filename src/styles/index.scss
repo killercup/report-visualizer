@@ -18,9 +18,27 @@ a {
   color: #000;
 }
 
-.chart-container {
-  float: left;
+%spaced-nicely {
   margin: 0 20px 30px;
+}
+
+%spaced-on-the-inside {
+  padding: 10px 20px;
+  margin: 0 0 30px;
+}
+
+.top-bar {
+  @extend %spaced-on-the-inside;
+  background: #efefef;
+}
+
+.box {
+  @extend %spaced-on-the-inside;
+}
+
+.chart-container {
+  @extend %spaced-nicely;
+  float: left;
   width: 260px;
 
   h2 {
