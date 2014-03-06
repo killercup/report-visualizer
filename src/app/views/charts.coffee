@@ -22,6 +22,36 @@ ChartContainer = React.createClass
       ])
     ])
 
+PunchChart = React.createClass
+  getDefaultProps: ->
+    weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
+    impetues: ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
+
+  render: ->
+    getIndex = (snap) ->
+      d = new Date(snap.date)
+      [d.getDay(), snap.reportImpetus]
+
+    counting = ((i) -> i is "Yes")
+
+    snaps = l.filter @props.snapshots, (snap) ->
+      snap.reportImpetus and _.isString(snap.date)
+
+    dist = l D.aggregatePunch snaps, getIndex, @props.question, counting
+      .filter ([x, y, a]) -> a >= 0
+      .map ([x, y, a]) =>
+        [@props.weekdays[x], @props.impetues[y], a]
+      .value()
+
+    (ChartContainer {
+      aspect: @props.question
+      distribution: dist
+      chartType: 'PunchChart'
+      width: 2 * 260 + 40
+      extraClasses: 'double'
+      padding: l: 60, b: 30, r: 0, t: 0
+    })
+
 module.exports = React.createClass
   render: ->
     responses = l(@props.snapshots)
@@ -35,35 +65,11 @@ module.exports = React.createClass
       .sort()
       .value()
 
-    weekdays = ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
-    impetues = ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
-
-    charts = questions.map (question) ->
+    charts = questions.map (question) =>
       sample = l.find(responses, questionPrompt: question)
 
       if /^(Yes|No)$/.test sample.answeredOptions?[0]
-        getIndex = (snap) ->
-          d = new Date(snap.date)
-          [d.getDay(), snap.reportImpetus]
-
-        counting = ((i) -> i is "Yes")
-
-        snaps = l.filter data.snapshots, (snap) ->
-          snap.reportImpetus and _.isString(snap.date)
-
-        dist = l D.aggregatePunch snaps, getIndex, question, counting
-          .filter ([x, y, a]) -> a >= 0
-          .map ([x, y, a]) ->
-            [weekdays[x], impetues[y], a]
-          .value()
-
-        props =
-          aspect: question
-          distribution: dist
-          chartType: 'PunchChart'
-          width: 2 * 260 + 40
-          extraClasses: 'double'
-          padding: l: 60, b: 30, r: 0, t: 0
+        (PunchChart {snapshots: @props.snapshots, question})
       else
         props = D.getDistribution(responses, question)
 
@@ -72,7 +78,7 @@ module.exports = React.createClass
         else
           props.chartType = 'VerticalBars'
 
-      (ChartContainer props, [])
+        (ChartContainer props, [])
 
     do =>
       props = D.connectionsDistribution(@props.snapshots, "What's your internet connection?")
