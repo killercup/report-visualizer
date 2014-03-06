@@ -1,7 +1,7 @@
 l = require('lodash')
 React = require('react')
 
-{div, h2} = React.DOM
+{div, h2, select, option} = React.DOM
 
 ChartTypes = require('../charts')
 D = require('../reporter/distributions')
@@ -60,23 +60,34 @@ module.exports = React.createClass
     extraClasses: ''
 
   getInitialState: ->
-    double: false
     chartType: @props.chartType
 
   componentWillMount: ->
     unless @state.chartType?
       if /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
-        @setState chartType: 'PunchChart', double: true
+        @setState chartType: 'PunchChart'
       else if @props.sample.answeredOptions
-        @setState chartType: 'Stacked', double: false
+        @setState chartType: 'Stacked'
       else
-        @setState chartType: 'VerticalBars', double: false
+        @setState chartType: 'VerticalBars'
+
+  handleChartTypeChange: ->
+    @setState
+      chartType: event.target.value
 
   render: ->
     SpecificChart = SpecificCharts[@state.chartType] or SpecificCharts.VerticalBars
 
-    (div {className: "chart-container#{if @state.double then ' double' else ''}"}, [
-      (h2 {}, @props.aspect)
+    (div {className: "chart-container#{if @state.chartType is 'PunchChart' then ' double' else ''}"}, [
+      (h2 {}, [
+        "#{@props.aspect} "
+        (select {value: @state.chartType, onChange: @handleChartTypeChange},
+          _(SpecificCharts).keys()
+          .reject (i) => i is 'PunchChart' and not /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
+          .map (key) -> (option {value: key}, key)
+          .value()
+        )
+      ])
       (div {className: 'chart-box'}, [
         (SpecificChart @props, [])
       ])
