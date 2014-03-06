@@ -42,7 +42,7 @@ a {
   width: 260px;
 
   &.double {
-    width: 2 * 260px;
+    width: 2 * 260px + 40px;
   }
 
   h2 {

@@ -61,7 +61,7 @@ module.exports = React.createClass
           aspect: question
           distribution: dist
           chartType: 'PunchChart'
-          width: 2*260
+          width: 2 * 260 + 40
           extraClasses: 'double'
           padding: l: 60, b: 30, r: 0, t: 0
       else
