@@ -41,6 +41,10 @@ a {
   float: left;
   width: 260px;
 
+  &.double {
+    width: 2 * 260px;
+  }
+
   h2 {
     font-size: 1.2em;
     line-height: 1.6em;
@@ -74,4 +78,29 @@ a {
 
 .chart-vertical-bar {
   background: #0b84c2;
+}
+
+.chart-punchchart {
+  shape-rendering: geometricPrecision;
+
+  circle {
+    fill: #0b84c2;
+  }
+
+  line {
+    stroke: #000;
+    stroke-width: 1px;
+  }
+
+  .labels-y {
+    text {
+      text-anchor: end
+    }
+  }
+
+  .labels-x {
+    text {
+      text-anchor: middle
+    }
+  }
 }

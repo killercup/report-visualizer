@@ -1,3 +1,6 @@
+###
+# # Stacked Chart
+###
 l = require('lodash')
 React = require('react')
 
@@ -6,6 +9,10 @@ React = require('react')
 Chart = require('../charts/chart')
 Bar = require('../charts/bar')
 
+###
+# @method Stacked Chart Component
+# @param {Object} distribution Mapping title to number
+###
 module.exports = React.createClass
   getDefaultProps: ->
     width: 200
