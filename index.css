@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: #333; }
+
+section {
+  clear: both;
+  overflow: auto; }
+
+a {
+  color: #000; }
+
+.chart-container {
+  margin: 0 20px 30px; }
+
+.top-bar, .box {
+  padding: 10px 20px;
+  margin: 0 0 30px; }
+
+.top-bar {
+  background: #efefef; }
+
+
+.chart-container {
+  background: #fff; }
+
+.load-files p {
+  margin-bottom: 0.6em; }
+
+.chart-container {
+  float: left;
+  width: 260px; }
+  .chart-container.double {
+    width: 560px; }
+  .chart-container h2 {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    min-height: 3.2em;
+    padding: 0 4px 10px; }
+  .chart-container .toggle-settings {
+    float: right;
+    border: 0;
+    outline: 0;
+    background: #fff;
+    display: inline-block;
+    margin: 4px 10px;
+    padding: 4px;
+    text-align: center;
+    min-width: 6em; }
+    .chart-container .toggle-settings:hover {
+      background: #ddd; }
+    .chart-container .toggle-settings:active {
+      background: #bbb; }
+
+.chart-box {
+  height: 305px;
+  overflow: auto; }
+  .chart-box svg {
+    overflow: hidden; }
+
+.chart-stacked text {
+  fill: #fff; }
+
+.chart-vertical-line {
+  margin-bottom: 10px; }
+
+.chart-vertical-label {
+  margin-bottom: 5px; }
+
+.chart-vertical-bar {
+  background: #0b84c2; }
+
+.chart-punchchart {
+  shape-rendering: geometricPrecision; }
+  .chart-punchchart circle {
+    fill: #0b84c2; }
+  .chart-punchchart .tooltip {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.3s; }
+  .chart-punchchart .dot:hover circle {
+    fill: #326e8c; }
+  .chart-punchchart .dot:hover .tooltip {
+    opacity: 1; }
+  .chart-punchchart line {
+    stroke: #000;
+    stroke-width: 1px; }
+  .chart-punchchart .labels-y text {
+    text-anchor: end; }
+  .chart-punchchart .labels-x text {
+    text-anchor: middle; }
+
+.tooltip-bg {
+  fill: black;
+  opacity: 0.75; }
+
+.tooltip-label {
+  fill: #fff;
+  font-size: 10px;
+  text-anchor: middle; }
+
+.overlay-container {
+  position: relative; }
+  .overlay-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: none;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s ease-in-out; }
+  .overlay-container.active .overlay {
+    display: block;
+    opacity: 1;
+    z-index: 4;
+    background: rgba(255, 255, 255, 0.9); }
