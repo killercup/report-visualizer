@@ -20,10 +20,10 @@ module.exports = React.createClass
       .sort()
       .value()
 
-    charts = questions.map (question) =>
+    charts = questions.map (question, index) =>
       sample = l.find(responses, questionPrompt: question)
       (ChartContainer {
-        key: question,
+        key: index,
         snapshots: @props.snapshots, aspect: question,
         responses: responses, sample: sample
       })
@@ -32,7 +32,7 @@ module.exports = React.createClass
       aspect = "What's your internet connection?"
       distribution = D.connectionsDistribution(@props.snapshots, aspect).distribution
       props =
-        key: aspect
+        key: charts.length
         aspect: aspect
         distribution: distribution
         chartType: 'Stacked'

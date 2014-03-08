@@ -54,7 +54,7 @@ module.exports = React.createClass
       'double': (isPunchChart @state.chartType)
 
     (div {className: classes}, [
-      (Overlay {key: 'overlay', active: @state.overlay}, [
+      (Overlay {key: 'over', active: @state.overlay}, [
         (div {key: 'main', className: 'main'}, [
           (button {
             key: 'settings'
