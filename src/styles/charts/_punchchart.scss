@@ -5,6 +5,23 @@
     fill: #0b84c2;
   }
 
+  .tooltip {
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: 0.3s;
+  }
+
+  .dot:hover {
+    circle {
+      fill: #326e8c;
+    }
+
+    .tooltip {
+      opacity: 1;
+    }
+  }
+
   line {
     stroke: #000;
     stroke-width: 1px;
@@ -12,13 +29,13 @@
 
   .labels-y {
     text {
-      text-anchor: end
+      text-anchor: end;
     }
   }
 
   .labels-x {
     text {
-      text-anchor: middle
+      text-anchor: middle;
     }
   }
 }

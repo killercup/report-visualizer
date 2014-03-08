@@ -3,7 +3,8 @@ React = require('react')
 
 {g, text, circle, line} = React.DOM
 
-Chart = require('../charts/chart')
+Chart = require('./chart')
+Tooltip = require('./tooltip')
 
 ###
 # @method Punchchart Component
@@ -90,16 +91,29 @@ module.exports = React.createClass
       }, name.replace(/^(\d*) /, ''))
 
     dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
-      r = Math.max 5, (maxRadius * (amount - amountMin) / Math.max(1, (amountMax - amountMin)))
-      if isNaN(r)
-        console.log amount, maxRadius, amountMin, amountMax
       return unless amount > 0
-      (circle {
-        key: index
-        r: r
-        transform: "translate(#{(withPerItem/2) + xScale _.indexOf(xValues, xVal)}, #{(heightPerItem/2) + yScale _.indexOf(yValues, yVal)})"
-        title: "#{amount}"
-      })
+      r = Math.max 5,
+        (maxRadius * (amount - amountMin) /
+          Math.max(1, (amountMax - amountMin)))
+
+      r = 5 if isNaN(r)
+
+      x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
+      y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
+
+      (g {key: index, className: 'dot'}, [
+        (circle {
+          key: 'dot'
+          r: r
+          transform: "translate(#{x}, #{y})"
+          title: "#{amount}"
+        })
+        (Tooltip {
+          key: 'tip',
+          x: x, y: y-r,
+          label: "#{amount}"
+        })
+      ])
 
     (Chart {
       width: @props.width, height: @props.height,
