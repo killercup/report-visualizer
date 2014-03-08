@@ -21,7 +21,9 @@ module.exports = React.createClass
   getInitialState: ->
     punchChartAble = /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
 
-    unless @props.chartType
+    if @props.chartType
+      chartType = @props.chartType
+    else
       if punchChartAble
         chartType = 'PunchImpetusWeekday'
       else if @props.sample.answeredOptions
