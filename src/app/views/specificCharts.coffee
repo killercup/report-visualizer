@@ -32,10 +32,11 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
     weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
     impetues: ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
     criteria: "Yes"
-    getIndex: (snap) ->
+    getIndex: (snap) =>
       d = new Date(snap.date)
       [d.getDay(), snap.reportImpetus]
-    entryToLabels: ([x, y, a]) => [@props.weekdays[x], @props.impetues[y], a]
+    entryToLabels: ([x, y, a]) =>
+      [@props.weekdays[x], @props.impetues[y], a]
 
   render: ->
     getIndex = @props.getIndex
@@ -46,7 +47,6 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
       snap.reportImpetus and _.isString(snap.date)
 
     dist = _(D.aggregatePunch snaps, getIndex, @props.aspect, counting)
-      .filter ([x, y, a]) -> a > 0
       .map @props.entryToLabels
       .value()
 
@@ -73,10 +73,9 @@ SpecificCharts.PunchHourWeekday = React.createClass
 
     snaps = _.filter @props.snapshots, (snap) ->
       # only reports in newer format
-      snap.reportImpetus and _.isString(snap.date)
+      _.isString(snap.date)
 
     dist = _(D.aggregatePunch snaps, getIndex, @props.aspect, counting)
-      .filter ([x, y, a]) -> a > 0
       .map @props.entryToLabels
       .value()
 

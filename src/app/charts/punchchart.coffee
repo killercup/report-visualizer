@@ -83,6 +83,7 @@ module.exports = React.createClass
       r = Math.max 5, (maxRadius * (amount - amountMin) / Math.max(1, (amountMax - amountMin)))
       if isNaN(r)
         console.log amount, maxRadius, amountMin, amountMax
+      return unless amount > 0
       (circle {
         r: r
         transform: "translate(#{(withPerItem/2) + xScale _.indexOf(xValues, xVal)}, #{(heightPerItem/2) + yScale _.indexOf(yValues, yVal)})"
