@@ -15,9 +15,9 @@ PATH =
   styles: "#{SRC}/styles/index.scss"
   static: "#{SRC}/**/*.html"
 
-LIBS = require('./src/app/libs')
-
 gulp.task 'scripts', ->
+  LIBS = require('./src/app/libs')
+
   gulp.src(PATH.scriptsEntry, read: false)
   .pipe plumber()
   .pipe browserify
@@ -30,6 +30,8 @@ gulp.task 'scripts', ->
   .pipe gulp.dest(DEST)
 
 gulp.task 'scriptLibs', ->
+  LIBS = require('./src/app/libs')
+
   gulp.src(PATH.libsEntry, read: false)
   .pipe browserify
     transform: ['coffeeify']
@@ -52,6 +54,7 @@ gulp.task 'static', ->
 
 gulp.task 'watch', ->
   gulp.watch PATH.scripts, ['scripts']
+  gulp.watch PATH.libsEntry, ['scriptLibs']
   gulp.watch PATH.styles, ['styles']
   gulp.watch PATH.static, ['static']
 

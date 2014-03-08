@@ -3,4 +3,5 @@ bower_components/
 dist/
 .sass-cache/
 *.sublime-project
+*.sublime-workspace
 *.log

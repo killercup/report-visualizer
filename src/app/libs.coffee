@@ -3,7 +3,7 @@ PATH =
   bower: 'bower_components/'
 
 npmLibs = [
-  'highland'
+  'q'
 ]
 
 bowerLibs =

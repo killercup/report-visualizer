@@ -1,35 +1,31 @@
-_ = require('highland')
+l = require('lodash')
+Q = require('q')
 React = require('react')
 
 {div, p, input} = React.DOM
 
 data = require('./data')
 
-loadJSONViaFileAPI = (err, file, push, next) ->
-  if err
-    push(err)
-    return next()
-
-  if file is _.nil
-    return push(null, file)
+loadJSONViaFileAPI = (file) ->
+  deferred = Q.defer()
 
   reader = new window.FileReader()
   reader.onload = (event) ->
     try
       fileContent = JSON.parse event.target.result
-      push(null, fileContent)
-      next()
+      deferred.resolve fileContent
     catch e
-      next new Error('Error parsing', file.name)
+      e.message = "Error parsing #{file.name}"
+      deferred.reject(e)
 
   reader.onerror = ->
-    next new Error('Error reading file', file.name)
+    deferred.reject new Error("Error reading file #{file.name}")
 
   reader.onabort = ->
-    next new Error('Aborted reading file', file.name)
+    deferred.reject new Error("Aborted reading file #{file.name}")
 
   reader.readAsText(file)
-  return
+  return deferred.promise
 
 module.exports = React.createClass
   loadFiles: (event) ->
@@ -37,13 +33,12 @@ module.exports = React.createClass
     files = event.target.files
     return console.log("No files") unless files?.length
 
-    _(Array.prototype.slice.call(files))
-    .consume loadJSONViaFileAPI
-    .reduce [], (memo, val) ->
-      memo.concat val.snapshots
-    .errors (err, push) ->
-      console.error err
-    .toArray ([items]) =>
+    Q.all l.map files, loadJSONViaFileAPI
+    .then (files) =>
+      items = l(files)
+        .map (file) -> file.snapshots
+        .flatten()
+        .value()
       try
         data.hasData = true
         data.snapshots = items
@@ -51,6 +46,9 @@ module.exports = React.createClass
         @props.gotData()
       catch e
         console.error e.stack
+    .fail (err) ->
+      window.alert "Failed to load files."
+      console.error err
 
   render: ->
     (div {className: 'load-files'},
