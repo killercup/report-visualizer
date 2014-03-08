@@ -36,5 +36,9 @@ a {
   @extend %spaced-on-the-inside;
 }
 
+.chart-container {
+  background: #fff;
+}
+
 @import "charts/index";
 @import "overlay";

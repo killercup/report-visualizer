@@ -11,7 +11,27 @@
     font-size: 1.2em;
     line-height: 1.6em;
     min-height: 1.6em * 2;
-    padding: 0 0 10px;
+    padding: 0 4px 10px;
+  }
+
+  .toggle-settings {
+    float: right;
+    border: 0;
+    outline: 0;
+    background: #fff;
+    display: inline-block;
+    margin: 4px 10px;
+    padding: 4px;
+    text-align: center;
+    min-width: 6em;
+
+    &:hover {
+      background: #ddd;
+    }
+
+    &:active {
+      background: #bbb;
+    }
   }
 }
 

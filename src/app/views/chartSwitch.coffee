@@ -69,8 +69,8 @@ module.exports = React.createClass
             key: 'settings'
             className: 'toggle-settings'
             onClick: @toggleOverlay
-          }, "Settings")
-          (h2 {key: 'heading'}, "Settings for #{@props.aspect}")
+          }, "Done")
+          (h2 {key: 'heading'}, @props.aspect)
           (p {key: 'settings-1'}, [
             (label {key: 'label'}, [
               "Chart Type ",

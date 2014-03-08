@@ -52,7 +52,7 @@ module.exports = React.createClass
       console.error err
 
   render: ->
-    (div {className: 'load-files'},
+    (div {className: 'box load-files'},
       (p {},
         (input {type: 'file', multiple: true, onChange: @loadFiles})
       )
