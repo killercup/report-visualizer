@@ -28,6 +28,7 @@ loadJSONViaFileAPI = (file) ->
   return deferred.promise
 
 module.exports = React.createClass
+  displayName: "LoadFiles"
   loadFiles: (event) ->
     event.preventDefault()
     files = event.target.files

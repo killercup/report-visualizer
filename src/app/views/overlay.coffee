@@ -3,6 +3,7 @@ React = require('react')
 {div, a} = React.DOM
 
 module.exports = React.createClass
+  displayName: "OverlayContainer"
   getDefaultProps: ->
     active: false
 

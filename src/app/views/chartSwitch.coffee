@@ -10,6 +10,7 @@ isPunchChart = (chartType) ->
   /^Punch/.test chartType
 
 module.exports = React.createClass
+  displayName: "ChartContainer"
   mixins: [React.addons.LinkedStateMixin]
 
   getDefaultProps: ->

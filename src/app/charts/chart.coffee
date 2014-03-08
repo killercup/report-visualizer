@@ -3,6 +3,7 @@ React = require('react')
 {svg} = React.DOM
 
 module.exports = React.createClass
+  displayName: "Chart"
   getDefaultProps: ->
     width: 0
     height: 0

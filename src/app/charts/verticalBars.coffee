@@ -7,6 +7,7 @@ Chart = require('../charts/chart')
 Bar = require('../charts/bar')
 
 module.exports = React.createClass
+  displayName: "VerticalBarChart"
   getDefaultProps: ->
     width: 200
     height: 300

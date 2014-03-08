@@ -14,6 +14,7 @@ Bar = require('../charts/bar')
 # @param {Object} distribution Mapping title to number
 ###
 module.exports = React.createClass
+  displayName: "StackedChart"
   getDefaultProps: ->
     width: 200
     height: 300

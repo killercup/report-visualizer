@@ -10,6 +10,7 @@ Chart = require('../charts/chart')
 # @param {Array} distribution `[xValue, yValue, amount]`
 ###
 module.exports = React.createClass
+  displayName: "PunchChart"
   getDefaultProps: ->
     width: 200
     height: 300

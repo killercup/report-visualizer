@@ -11,6 +11,7 @@ React = require('react')
 data = require('./data')
 
 layout = React.createClass
+  displayName: "Layout"
   getInitialState: ->
     hasData: !!data.hasData
 
@@ -25,24 +26,24 @@ layout = React.createClass
 
   render: ->
     views = [
-      (div {className: 'top-bar'}, [
-        (h1 {}, "Reporter Report Analyser")
+      (div {key: 'top-bar', className: 'top-bar'}, [
+        (h1 {key: 'title'}, "Reporter Report Analyser")
       ])
     ]
 
     if @state.hasData
       views = views.concat [
-        (section {className: 'box meta'}, [
+        (section {key: 'meta', className: 'box meta'}, [
           (p {}, [
             "#{@props.snapshots.length} snapshots loaded. "
-            (a {href: '#clear', onClick: @clearCache}, "Clear Cache")
+            (a {key: "clearCache", href: '#clear', onClick: @clearCache}, "Clear Cache")
           ])
         ])
-        (require('./views/charts') {snapshots: @props.snapshots})
+        (require('./views/charts') {key: 'charts', snapshots: @props.snapshots})
       ]
     else
       views = views.concat [
-        (require('./loadFiles') {gotData: @gotData})
+        (require('./loadFiles') {key: 'loadFiles', gotData: @gotData})
       ]
 
     (section {className: 'main'}, views)

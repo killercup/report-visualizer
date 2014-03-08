@@ -4,6 +4,7 @@ l = require('lodash')
 {rect} = React.DOM
 
 module.exports = React.createClass
+  displayName: "Bar"
   getDefaultProps: ->
     width: 0
     height: 0

@@ -7,6 +7,7 @@ D = require('../reporter/distributions')
 ChartContainer = require('./chartSwitch')
 
 module.exports = React.createClass
+  displayName: "ChartsView"
   render: ->
     responses = l(@props.snapshots)
       .pluck('responses')
@@ -31,6 +32,7 @@ module.exports = React.createClass
       aspect = "What's your internet connection?"
       distribution = D.connectionsDistribution(@props.snapshots, aspect).distribution
       props =
+        key: aspect
         aspect: aspect
         distribution: distribution
         chartType: 'Stacked'

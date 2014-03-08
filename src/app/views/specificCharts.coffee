@@ -7,6 +7,7 @@ D = require('../reporter/distributions')
 SpecificCharts = {}
 
 SpecificCharts.Stacked = React.createClass
+  displayName: "StackedReporterChart"
   render: ->
     if @props.distribution
       props = @props
@@ -16,6 +17,7 @@ SpecificCharts.Stacked = React.createClass
     (ChartTypes.Stacked props, [])
 
 SpecificCharts.VerticalBars = React.createClass
+  displayName: "VerticalBarsReporterChart"
   render: ->
     if @props.distribution
       props = @props
@@ -25,6 +27,7 @@ SpecificCharts.VerticalBars = React.createClass
     (ChartTypes.VerticalBars props, [])
 
 SpecificCharts.PunchImpetusWeekday = React.createClass
+  displayName: "PunchImpetusWeekdayReporterChart"
   getDefaultProps: ->
     weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
     impetues: ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
@@ -55,6 +58,7 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
     })
 
 SpecificCharts.PunchHourWeekday = React.createClass
+  displayName: "PunchHourWeekdayReporterChart"
   getDefaultProps: ->
     weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
     criteria: "Yes"
