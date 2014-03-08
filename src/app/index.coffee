@@ -25,14 +25,11 @@ layout = React.createClass
     window.location.reload()
 
   render: ->
-    views = [
+    (section {className: 'main'}, [
       (div {key: 'top-bar', className: 'top-bar'}, [
         (h1 {key: 'title'}, "Reporter Report Analyser")
       ])
-    ]
-
-    if @state.hasData
-      views = views.concat [
+      if @state.hasData then [
         (section {key: 'meta', className: 'box meta'}, [
           (p {key: 'meta-p'}, [
             "#{@props.snapshots.length} snapshots loaded. "
@@ -40,17 +37,14 @@ layout = React.createClass
           ])
         ])
         (require('./views/charts') {key: 'charts', snapshots: @props.snapshots})
-      ]
-    else
-      views = views.concat [
+      ] else [
         (require('./loadFiles') {key: 'loadFiles', gotData: @gotData})
       ]
-
-    (section {className: 'main'}, views)
+    ])
 
 renderMain = ->
   React.renderComponent(
-    layout({snapshots: data.snapshots}),
+    (layout {snapshots: data.snapshots}),
     document.getElementById('container')
   )
 
