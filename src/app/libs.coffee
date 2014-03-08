@@ -8,7 +8,8 @@ npmLibs = [
 
 bowerLibs =
   react:
-    path: "#{PATH.bower}react/react-with-addons.min.js"
+    # path: "#{PATH.bower}react/react-with-addons.min.js"
+    path: "src/app/react-shim.js"
     exports: null
   # d3:
   #   path: "#{PATH.bower}d3/d3.min.js"
