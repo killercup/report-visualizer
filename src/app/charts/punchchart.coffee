@@ -49,11 +49,13 @@ module.exports = React.createClass
     xScale = (index) -> pad.l + withPerItem * index
 
     xAxis = (line {
+      key: 'xAxis',
       x1: 0, x2: @props.width,
       y1: inner.height + pad.t, y2: inner.height + pad.t,
       transform: "translate(0.5,0.5)"
     })
     yAxis = (line {
+      key: 'yAxis',
       x1: pad.l, x2: pad.l,
       y1: 0, y2: @props.height,
       transform: "translate(0.5,0.5)"
@@ -61,22 +63,30 @@ module.exports = React.createClass
 
     yMarkers = l.map yValues, (name, index) ->
       (line {
-        x1: pad.l - 5, y1: yScale(index+1)-(heightPerItem/2),
-        x2: pad.l + 5, y2: yScale(index+1)-(heightPerItem/2),
+        key: index
+        x1: pad.l - 5, y1: yScale(index + 1) - (heightPerItem / 2)
+        x2: pad.l + 5, y2: yScale(index + 1) - (heightPerItem / 2)
       })
 
     yLabels = l.map yValues, (name='', index) ->
-      (text {x: pad.l - 10, y: yScale(index+1)-(heightPerItem/2)+5}, name)
+      (text {
+        key: index
+        x: pad.l - 10
+        y: yScale(index + 1) - (heightPerItem / 2) + 5
+      }, name)
 
     xMarkers = l.map xValues, (name, index) =>
       (line {
-        x1: xScale(index)+(withPerItem/2), y1: @props.height - pad.b - 5,
-        x2: xScale(index)+(withPerItem/2), y2: @props.height - pad.b + 5,
+        key: index
+        x1: xScale(index) + (withPerItem / 2), y1: @props.height - pad.b - 5
+        x2: xScale(index) + (withPerItem / 2), y2: @props.height - pad.b + 5
       })
 
     xLabels = l.map xValues, (name='', index) =>
       (text {
-        x: xScale(index)+(withPerItem/2), y: @props.height - pad.b + 20
+        key: index
+        x: xScale(index) + (withPerItem / 2)
+        y: @props.height - pad.b + 20
       }, name.replace(/^(\d*) /, ''))
 
     dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
@@ -85,6 +95,7 @@ module.exports = React.createClass
         console.log amount, maxRadius, amountMin, amountMax
       return unless amount > 0
       (circle {
+        key: index
         r: r
         transform: "translate(#{(withPerItem/2) + xScale _.indexOf(xValues, xVal)}, #{(heightPerItem/2) + yScale _.indexOf(yValues, yVal)})"
         title: "#{amount}"
@@ -96,9 +107,9 @@ module.exports = React.createClass
     }, [
       xAxis
       yAxis
-      (g {className: 'labels-y'}, yLabels)
-      (g {className: 'markers-y'}, yMarkers)
-      (g {className: 'labels-x'}, xLabels)
-      (g {className: 'markers-x'}, xMarkers)
-      (g {className: 'values'}, dots)
+      (g {key: 'labels-y', className: 'labels-y'}, yLabels)
+      (g {key: 'markers-y', className: 'markers-y'}, yMarkers)
+      (g {key: 'labels-x', className: 'labels-x'}, xLabels)
+      (g {key: 'markers-x', className: 'markers-x'}, xMarkers)
+      (g {key: 'values', className: 'values'}, dots)
     ])

@@ -34,7 +34,7 @@ layout = React.createClass
     if @state.hasData
       views = views.concat [
         (section {key: 'meta', className: 'box meta'}, [
-          (p {}, [
+          (p {key: 'meta-p'}, [
             "#{@props.snapshots.length} snapshots loaded. "
             (a {key: "clearCache", href: '#clear', onClick: @clearCache}, "Clear Cache")
           ])

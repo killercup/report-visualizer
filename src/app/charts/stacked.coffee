@@ -35,12 +35,13 @@ module.exports = React.createClass
     bars = l(@props.distribution)
       .pairs()
       .sortBy ([title, num]) -> -1 * num
-      .map ([title, num]) =>
+      .map ([title, num], index) =>
         height = @props.height * (num / answerCount)
 
-        label = (text {x: 5, y: offset + 15}, title)
+        label = (text {key: 'label', x: 5, y: offset + 15}, title)
 
         bar = (Bar {
+          key: 'bar'
           width: @props.width
           height: height
           title: title
@@ -49,7 +50,7 @@ module.exports = React.createClass
         }, [])
         offset += height
 
-        return (g {}, [
+        return (g {key: index}, [
           bar
           label
         ])

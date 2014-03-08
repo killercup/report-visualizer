@@ -44,35 +44,37 @@ module.exports = React.createClass
 
     chartOptions = _(SpecificCharts).keys()
       .reject (i) => (isPunchChart i) and not @state.punchChartAble
-      .map (key) -> (option {value: key}, key)
+      .map (key) -> (option {key: key, value: key}, key)
       .value()
 
     classes = React.addons.classSet
       'chart-container': true,
       'double': (isPunchChart @state.chartType)
 
-    settingsButton = =>
-      (button {
-        className: 'toggle-settings'
-        onClick: @toggleOverlay
-      }, "Settings")
-
     (div {className: classes}, [
-      (Overlay {active: @state.overlay}, [
-        (div {className: 'main'}, [
-          (settingsButton {})
-          (h2 {}, @props.aspect)
-          (div {className: 'chart-box'}, [
+      (Overlay {key: 'overlay', active: @state.overlay}, [
+        (div {key: 'main', className: 'main'}, [
+          (button {
+            key: 'settings'
+            className: 'toggle-settings'
+            onClick: @toggleOverlay
+          }, "Settings")
+          (h2 {key: 'heading'}, @props.aspect)
+          (div {key: 'chart', className: 'chart-box'}, [
             (SpecificChart @props, [])
           ])
         ])
-        (div {className: 'overlay'}, [
-          (settingsButton {})
-          (h2 {}, "Settings for #{@props.aspect}")
-          (p {}, [
-            (label {}, [
+        (div {key: 'overlay', className: 'overlay'}, [
+          (button {
+            key: 'settings'
+            className: 'toggle-settings'
+            onClick: @toggleOverlay
+          }, "Settings")
+          (h2 {key: 'heading'}, "Settings for #{@props.aspect}")
+          (p {key: 'settings-1'}, [
+            (label {key: 'label'}, [
               "Chart Type ",
-              (select {valueLink: @linkState('chartType')}, chartOptions)
+              (select {key: 'select', valueLink: @linkState('chartType')}, chartOptions)
             ])
           ])
         ])
