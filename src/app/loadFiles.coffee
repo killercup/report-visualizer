@@ -2,7 +2,7 @@ l = require('lodash')
 Q = require('q')
 React = require('react')
 
-{div, p, input} = React.DOM
+{div, p, code, input} = React.DOM
 
 data = require('./data')
 
@@ -53,7 +53,17 @@ module.exports = React.createClass
 
   render: ->
     (div {className: 'box load-files'},
-      (p {},
+      (p {key: 'help'}, [
+        """Just select all the files Reporter saved to your Dropbox. They are probably
+        in a folder called """
+        (code {}, "~/Dropbox/Apps/Reporter-App")
+        "."
+      ])
+      (p {key: 'server-info'}, """
+        Your data will not be uploaded to any server, it will only be
+        stored and processed by the browser you are currently using.
+      """)
+      (p {key: 'input'},
         (input {type: 'file', multiple: true, onChange: @loadFiles})
       )
     )

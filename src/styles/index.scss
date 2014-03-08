@@ -40,5 +40,11 @@ a {
   background: #fff;
 }
 
+.load-files {
+  p {
+    margin-bottom: 0.6em;
+  }
+}
+
 @import "charts/index";
 @import "overlay";
