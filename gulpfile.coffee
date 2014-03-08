@@ -26,8 +26,6 @@ gulp.task 'scripts', ->
     extensions: ['.coffee']
     external: LIBS
   .pipe concat('app.js')
-  # .pipe uglify
-  #   preserveComments: 'some'
   .pipe gulp.dest(DEST)
 
 gulp.task 'scriptLibs', ->
@@ -40,8 +38,6 @@ gulp.task 'scriptLibs', ->
     require: LIBS.npmLibs
     shim: LIBS.bowerLibs
   .pipe concat('libs.js')
-  # .pipe uglify
-  #   preserveComments: 'some'
   .pipe gulp.dest(DEST)
 
 gulp.task 'styles', ->
@@ -55,6 +51,12 @@ gulp.task 'static', ->
   .pipe plumber()
   .pipe gulp.dest(DEST)
 
+gulp.task 'minify', ['scripts', 'scriptLibs'], ->
+  gulp.src "#{DEST}/*.js"
+  .pipe uglify
+    preserveComments: 'some'
+  .pipe gulp.dest(DEST)
+
 gulp.task 'watch', ->
   gulp.watch PATH.scripts, ['scripts']
   gulp.watch PATH.libsEntry, ['scriptLibs']
@@ -63,3 +65,4 @@ gulp.task 'watch', ->
 
 gulp.task 'build', ['scripts', 'scriptLibs', 'static', 'styles']
 gulp.task 'default', ['build', 'watch']
+gulp.task 'compile', ['static', 'styles', 'minify']
