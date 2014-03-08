@@ -2,6 +2,8 @@
 
 Server-less web app to display data gathered by [Reporter].
 
+**[Live Version](http://killercup.github.io/report-visualizer/)**
+
 [Reporter]: http://www.reporter-app.com/
 
 ## Workflow
