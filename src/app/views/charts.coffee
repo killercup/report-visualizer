@@ -22,6 +22,7 @@ module.exports = React.createClass
     charts = questions.map (question) =>
       sample = l.find(responses, questionPrompt: question)
       (ChartContainer {
+        key: question,
         snapshots: @props.snapshots, aspect: question,
         responses: responses, sample: sample
       })

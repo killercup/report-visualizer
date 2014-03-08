@@ -1,0 +1,29 @@
+.chart-container {
+  @extend %spaced-nicely;
+  float: left;
+  width: 260px;
+
+  &.double {
+    width: 2 * 260px + 40px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+    line-height: 1.6em;
+    min-height: 1.6em * 2;
+    padding: 0 0 10px;
+  }
+}
+
+.chart-box {
+  height: 305px;
+  overflow: auto;
+
+  svg {
+    overflow: hidden;
+  }
+}
+
+@import "stacked";
+@import "vertical_lines";
+@import "punchchart";

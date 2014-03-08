@@ -1,0 +1,24 @@
+.chart-punchchart {
+  shape-rendering: geometricPrecision;
+
+  circle {
+    fill: #0b84c2;
+  }
+
+  line {
+    stroke: #000;
+    stroke-width: 1px;
+  }
+
+  .labels-y {
+    text {
+      text-anchor: end
+    }
+  }
+
+  .labels-x {
+    text {
+      text-anchor: middle
+    }
+  }
+}

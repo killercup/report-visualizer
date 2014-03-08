@@ -12,7 +12,8 @@ PATH =
   scripts: "#{SRC}/app/**/*.coffee"
   scriptsEntry: "#{SRC}/app/index.coffee"
   libsEntry: "#{SRC}/app/libs.coffee"
-  styles: "#{SRC}/styles/index.scss"
+  styles: "#{SRC}/styles/**/*.scss"
+  stylesEntry: "#{SRC}/styles/index.scss"
   static: "#{SRC}/**/*.html"
 
 gulp.task 'scripts', ->
@@ -44,12 +45,14 @@ gulp.task 'scriptLibs', ->
   .pipe gulp.dest(DEST)
 
 gulp.task 'styles', ->
-  gulp.src(PATH.styles)
+  gulp.src(PATH.stylesEntry)
+  .pipe plumber()
   .pipe sass()
   .pipe gulp.dest(DEST)
 
 gulp.task 'static', ->
   gulp.src(PATH.static)
+  .pipe plumber()
   .pipe gulp.dest(DEST)
 
 gulp.task 'watch', ->

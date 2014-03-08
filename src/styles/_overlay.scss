@@ -1,0 +1,26 @@
+.overlay-container {
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    display: none;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s ease-in-out;
+  }
+
+  &.active {
+    .overlay {
+      display: block;
+      opacity: 1;
+      z-index: 4;
+
+      background: rgba(#fff, 0.9);
+    }
+  }
+}
