@@ -2,7 +2,7 @@
   shape-rendering: geometricPrecision;
 
   circle {
-    fill: #0b84c2;
+    fill: nth($colors, 2);
   }
 
   .tooltip {
@@ -14,7 +14,7 @@
 
   .dot:hover {
     circle {
-      fill: #326e8c;
+      fill: nth($colors, 5);
     }
 
     .tooltip {

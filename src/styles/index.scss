@@ -1,3 +1,9 @@
+/**
+ * # Report Visualizer Stylesheet
+ */
+
+$colors: (#042d42, #0b84c2, #075075, #57bef2, #326e8c);
+
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +12,7 @@
 body {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 14px;
+  line-height: 1.4;
   color: #333;
 }
 
@@ -16,6 +23,10 @@ section {
 
 a {
   color: #000;
+
+  &:hover {
+    color: nth($colors, 2);
+  }
 }
 
 %spaced-nicely {
