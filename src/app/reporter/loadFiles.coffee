@@ -2,9 +2,9 @@ l = require('lodash')
 Q = require('q')
 React = require('react')
 
-{div, p, code, input} = React.DOM
+{input} = React.DOM
 
-data = require('./data')
+data = require('../data')
 
 loadJSONViaFileAPI = (file) ->
   deferred = Q.defer()
@@ -52,18 +52,4 @@ module.exports = React.createClass
       console.error err
 
   render: ->
-    (div {className: 'box load-files'},
-      (p {key: 'help'}, [
-        """Just select all the files Reporter saved to your Dropbox. They are probably
-        in a folder called """
-        (code {}, "~/Dropbox/Apps/Reporter-App")
-        "."
-      ])
-      (p {key: 'server-info'}, """
-        Your data will not be uploaded to any server, it will only be
-        stored and processed by the browser you are currently using.
-      """)
-      (p {key: 'input'},
-        (input {type: 'file', multiple: true, onChange: @loadFiles})
-      )
-    )
+    (input {key: 1, type: 'file', multiple: true, onChange: @loadFiles})

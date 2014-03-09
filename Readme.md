@@ -4,6 +4,8 @@ Server-less web app to display data gathered by [Reporter].
 
 **[Live Version](http://killercup.github.io/report-visualizer/)**
 
+[![Flattr This](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/2729835/)
+
 [Reporter]: http://www.reporter-app.com/
 
 ## Workflow

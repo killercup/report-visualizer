@@ -6,7 +6,7 @@
 ###
 
 React = require('react')
-{section, div, h1, p, a} = React.DOM
+{section, div, h1, h2, p, a, code, img} = React.DOM
 
 data = require('./data')
 
@@ -26,9 +26,7 @@ layout = React.createClass
 
   render: ->
     (section {className: 'main'}, [
-      (div {key: 'top-bar', className: 'top-bar'}, [
-        (h1 {key: 'title'}, "Reporter Report Analyser")
-      ])
+      (require('./views/header') {key: 'header'})
       if @state.hasData then [
         (section {key: 'meta', className: 'box meta'}, [
           (p {key: 'meta-p'}, [
@@ -38,7 +36,7 @@ layout = React.createClass
         ])
         (require('./views/charts') {key: 'charts', snapshots: @props.snapshots})
       ] else [
-        (require('./loadFiles') {key: 'loadFiles', gotData: @gotData})
+        (require('./views/start') {key: 'start', gotData: @gotData})
       ]
     ])
 
