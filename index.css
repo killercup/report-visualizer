@@ -76,8 +76,18 @@ a {
   .chart-box svg {
     overflow: hidden; }
 
-.chart-stacked text {
+.stacked-bar text {
   fill: #fff; }
+.stacked-bar .hidden {
+  display: none; }
+
+.chart-stacked-bars line {
+  stroke: #000;
+  stroke-width: 1px; }
+.chart-stacked-bars .labels-y text {
+  text-anchor: end; }
+.chart-stacked-bars .labels-x text {
+  text-anchor: middle; }
 
 .chart-vertical-line {
   margin-bottom: 10px; }
