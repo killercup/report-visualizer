@@ -5,6 +5,7 @@ React = require('react')
 
 D = require('../reporter/distributions')
 ChartContainer = require('./chartSwitch')
+extras = require('./extraCharts')
 
 module.exports = React.createClass
   displayName: "ChartsView"
@@ -28,14 +29,9 @@ module.exports = React.createClass
         responses: responses, sample: sample
       })
 
-    do =>
-      aspect = "What's your internet connection?"
-      distribution = D.connectionsDistribution(@props.snapshots, aspect).distribution
-      props =
-        key: charts.length
-        aspect: aspect
-        distribution: distribution
-        chartType: 'Stacked'
-      charts.push (ChartContainer props, [])
+    charts.push (extras.ConnectionChart {
+      key: charts.length
+      snapshots: @props.snapshots
+    }, [])
 
     (section {}, charts)
