@@ -7,7 +7,46 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <div id="container"></div>
+  <div id="container">
+    <section class="main" data-reactid=".0">
+      <div class="top-bar" data-reactid=".0.$header">
+        <div class="right" data-reactid=".0.$header.$r">
+          <a class="flattr" data-reactid=".0.$header.$r.$flattr" href=
+          "http://flattr.com/thing/2729835/"><img data-reactid=
+          ".0.$header.$r.$flattr.$img" src=
+          "http://api.flattr.com/button/flattr-badge-large.png"></a><a class="gh"
+          data-reactid=".0.$header.$r.$gh" href=
+          "https://github.com/killercup/report-visualizer">Fork this on Github</a>
+        </div>
+
+        <h1 data-reactid=".0.$header.$title">Report Visualizer</h1>
+      </div>
+
+      <div class="box text-box load-files" data-reactid=".0.1:$start">
+        <h2 data-reactid=".0.1:$start.$headline">Display your reports</h2>
+
+        <p data-reactid=".0.1:$start.$info"><span data-reactid=
+        ".0.1:$start.$info.0">This tool can display the data exported by</span>
+        <a data-reactid=".0.1:$start.$info.$rep" href=
+        "http://www.reporter-app.com/">Reporter App</a> <span data-reactid=
+        ".0.1:$start.$info.2">in your browser.</span></p>
+
+        <p data-reactid=".0.1:$start.$help"><span data-reactid=
+        ".0.1:$start.$help.0">Just select all the files Reporter saved to your
+        Dropbox. They are probably in a folder called</span> <code data-reactid=
+        ".0.1:$start.$help.$code">~/Dropbox/Apps/Reporter-App</code>
+        <span data-reactid=".0.1:$start.$help.2">.</span></p>
+
+        <p data-reactid=".0.1:$start.$server-info">Your data will not be uploaded
+        to any server, it will only be stored and processed by the browser you are
+        currently using.</p>
+
+        <p class="upload-area" data-reactid=".0.1:$start.$input">
+          <em>Loading&hellip;</em>
+        </p>
+      </div>
+    </section>
+  </div>
 
   <script src="libs.js"></script>
   <script src="app.js"></script>

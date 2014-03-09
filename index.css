@@ -1,3 +1,6 @@
+/**
+ * # Report Visualizer Stylesheet
+ */
 * {
   margin: 0;
   padding: 0; }
@@ -5,6 +8,7 @@
 body {
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 14px;
+  line-height: 1.4;
   color: #333; }
 
 section {
@@ -13,6 +17,8 @@ section {
 
 a {
   color: #000; }
+  a:hover {
+    color: #0b84c2; }
 
 .chart-container {
   margin: 0 20px 30px; }
@@ -23,13 +29,21 @@ a {
 
 .top-bar {
   background: #efefef; }
+  .top-bar a {
+    display: inline-block;
+    margin: 0 10px; }
+  .top-bar .right {
+    float: right;
+    line-height: 2.1em; }
+  .top-bar img {
+    vertical-align: middle; }
 
 
-.chart-container {
-  background: #fff; }
+.text-box h2, .text-box p {
+  margin-bottom: 0.8em; }
 
-.load-files p {
-  margin-bottom: 0.6em; }
+.upload-area {
+  padding: 20px; }
 
 .chart-container {
   float: left;
