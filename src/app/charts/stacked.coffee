@@ -50,7 +50,10 @@ module.exports = React.createClass
       }, [])
       offset += height
 
-      return (g {key: index}, [
+      return (g {
+        key: index
+        className: if num is 0 then 'hidden' else ''
+      }, [
         bar
         label
       ])
