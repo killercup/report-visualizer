@@ -22,11 +22,16 @@ module.exports = React.createClass
       .value()
 
     charts = questions.map (question, index) =>
-      sample = l.find(responses, questionPrompt: question)
+      for snap in @props.snapshots by -1
+        if s = l.find(snap.responses, questionPrompt: question)
+          sample = s
+          sampleSnap = snap
+          break
+
       (ChartContainer {
         key: index,
         snapshots: @props.snapshots, aspect: question,
-        responses: responses, sample: sample
+        responses: responses, sample: sample, sampleSnap: sampleSnap
       })
 
     charts.push (extras.ConnectionChart {

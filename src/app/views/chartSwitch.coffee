@@ -17,6 +17,7 @@ module.exports = React.createClass
     width: 260
     extraClasses: ''
     overlay: false
+    sampleImpetus: 0
 
   getInitialState: ->
     punchChartAble = /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
@@ -25,7 +26,11 @@ module.exports = React.createClass
       chartType = @props.chartType
     else
       if punchChartAble
-        chartType = 'PunchImpetusWeekday'
+        if @props.sampleSnap?.reportImpetus is 2 #day
+          chartType = 'PunchHourWeekday'
+        else
+          console.log @props.aspect, @props.sampleSnap?.reportImpetus
+          chartType = 'StackedByWeekday'
       else if @props.sample.answeredOptions
         chartType = 'Stacked'
       else
@@ -51,7 +56,7 @@ module.exports = React.createClass
 
     classes = React.addons.classSet
       'chart-container': true,
-      'double': (isPunchChart @state.chartType)
+      'double': (isPunchChart @state.chartType) or (@state.chartType is 'StackedByWeekday')
 
     (div {className: classes}, [
       (Overlay {key: 'over', active: @state.overlay}, [
@@ -63,7 +68,7 @@ module.exports = React.createClass
           }, "Settings")
           (h2 {key: 'heading'}, @props.aspect)
           (div {key: 'chart', className: 'chart-box'}, [
-            (SpecificChart @props, [])
+            (SpecificChart _.defaults({key: 'chart'}, @props), [])
           ])
         ])
         (div {key: 'overlay', className: 'overlay'}, [

@@ -4,6 +4,9 @@ React = require('react')
 ChartTypes = require('../charts')
 D = require('../reporter/distributions')
 
+numberedWeekdays = ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
+impetues: ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
+
 SpecificCharts = {}
 
 SpecificCharts.Stacked = React.createClass
@@ -14,10 +17,51 @@ SpecificCharts.Stacked = React.createClass
     else
       props = _.defaults(D.getDistribution(@props.responses, @props.aspect), @props)
 
-    (ChartTypes.Stacked props, [])
+    (ChartTypes.StackedBar props, [])
+
+SpecificCharts.StackedByWeekday = React.createClass
+  displayName: "StackedByWeekdayReporterChart"
+  getDefaultProps: ->
+    weekdays: numberedWeekdays
+    grouping: (snap) ->
+      d = new Date(snap.date)
+      d.getDay()
+
+  render: ->
+    props = _.clone(@props)
+    snaps = _.filter(@props.snapshots, (snap) -> _.isString(snap.date))
+
+    responsesObject = {}
+    responses = _(@props.snapshots)
+      .pluck('responses')
+      .flatten()
+      .where(questionPrompt: @props.aspect)
+      .map(D.getAnswersFromResponse)
+      .unique()
+      .sort()
+      .each (r) ->
+        responsesObject[r] = 0
+
+    props.distribution or= D.getGroupedDistribution(
+      snaps,
+      @props.grouping,
+      @props.aspect
+    )
+
+    props.distribution = _(props.distribution)
+    .map ([key, answerCount]) ->
+      [key, _.defaults(answerCount, responsesObject)]
+    .sortBy ([key, a]) -> key
+    .value()
+
+    props.xValues or= _.sortBy @props.weekdays
+    props.width = 2 * 260 + 40
+
+    (ChartTypes.StackedBars props, [])
 
 SpecificCharts.VerticalBars = React.createClass
   displayName: "VerticalBarsReporterChart"
+
   render: ->
     if @props.distribution
       props = @props
@@ -29,8 +73,8 @@ SpecificCharts.VerticalBars = React.createClass
 SpecificCharts.PunchImpetusWeekday = React.createClass
   displayName: "PunchImpetusWeekdayReporterChart"
   getDefaultProps: ->
-    weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
-    impetues: ['Tapped', 'Sleeping', 'Day', 'Dusk', 'Dawn']
+    weekdays: numberedWeekdays
+    impetues: impetues
     criteria: "Yes"
     getIndex: (snap) ->
       d = new Date(snap.date)
@@ -60,7 +104,7 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
 SpecificCharts.PunchHourWeekday = React.createClass
   displayName: "PunchHourWeekdayReporterChart"
   getDefaultProps: ->
-    weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
+    weekdays: numberedWeekdays
     criteria: "Yes"
     yValues: [0..23]
     getIndex: (snap) ->

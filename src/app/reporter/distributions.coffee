@@ -27,6 +27,19 @@ exports.getDistribution = (responses, aspect) ->
   aspect: aspect
   distribution: exports.getAnswerCount l(responses).where questionPrompt: aspect
 
+exports.getGroupedDistribution = (snapshots, grouping, aspect) ->
+  l(snapshots)
+  .map (snap) ->
+    date: snap.date
+    response: l.find(snap.responses, questionPrompt: aspect)
+  .reject (snap) -> not snap.date or not snap.response
+  .groupBy grouping
+  .pairs()
+  .map ([key, responses]) ->
+    [key, exports.getAnswerCount(_.pluck responses, 'response')]
+  .value()
+
+
 exports.connectionsDistribution = (snapshots, aspect) ->
   aspect: aspect
   distribution: l(snapshots)
