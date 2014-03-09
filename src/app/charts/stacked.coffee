@@ -33,27 +33,27 @@ module.exports = React.createClass
     offset = 0
 
     bars = l(@props.distribution)
-      .pairs()
-      .sortBy ([title, num]) -> -1 * num
-      .map ([title, num], index) =>
-        height = @props.height * (num / answerCount)
+    .pairs()
+    .sortBy ([title, num]) -> -1 * num
+    .map ([title, num], index) =>
+      height = @props.height * (num / answerCount)
 
-        label = (text {key: 'label', x: 5, y: offset + 15}, title)
+      label = (text {key: 'label', x: 5, y: offset + 15}, title)
 
-        bar = (Bar {
-          key: 'bar'
-          width: @props.width
-          height: height
-          title: title
-          fill: getFill()
-          y: offset
-        }, [])
-        offset += height
+      bar = (Bar {
+        key: 'bar'
+        width: @props.width
+        height: height
+        title: title
+        fill: getFill()
+        y: offset
+      }, [])
+      offset += height
 
-        return (g {key: index}, [
-          bar
-          label
-        ])
+      return (g {key: index}, [
+        bar
+        label
+      ])
 
     (Chart {
       width: @props.width, height: @props.height,

@@ -30,16 +30,16 @@ exports.getDistribution = (responses, aspect) ->
 exports.connectionsDistribution = (snapshots, aspect) ->
   aspect: aspect
   distribution: l(snapshots)
-    .pluck "connection"
-    .map (val) ->
-      return 'Cell' if val is 0
-      return 'WiFi' if val is 1
-      return 'Offline'
-    .reduce ((memo, value) ->
-      memo[value] or= 0
-      memo[value] += 1
-      return memo
-    ), {}
+  .pluck "connection"
+  .map (val) ->
+    return 'Cell' if val is 0
+    return 'WiFi' if val is 1
+    return 'Offline'
+  .reduce ((memo, value) ->
+    memo[value] or= 0
+    memo[value] += 1
+    return memo
+  ), {}
 
 exports.aggregateWithIndex = (snapshots, getIndex, getValues, reduceValues) ->
   l(snapshots)

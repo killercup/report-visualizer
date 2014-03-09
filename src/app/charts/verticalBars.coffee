@@ -18,31 +18,31 @@ module.exports = React.createClass
     # minNum = _.min @props.distribution, _.identity
 
     lines = l(@props.distribution)
-      .pairs()
-      .sortBy ([title, num]) -> -1 * num
-      .map ([title, num], index) =>
-        width = @props.width * (num / maxNum)
+    .pairs()
+    .sortBy ([title, num]) -> -1 * num
+    .map ([title, num], index) =>
+      width = @props.width * (num / maxNum)
 
-        label = (p {
-          key: 'label'
-          className: 'chart-vertical-label'
-        }, "#{title} (#{num})")
+      label = (p {
+        key: 'label'
+        className: 'chart-vertical-label'
+      }, "#{title} (#{num})")
 
-        bar = (div {
-          key: 'bar',
-          className: 'chart-vertical-bar'
-          style:
-            width: width
-            height: @props.lineHeight
-        }, [])
+      bar = (div {
+        key: 'bar',
+        className: 'chart-vertical-bar'
+        style:
+          width: width
+          height: @props.lineHeight
+      }, [])
 
-        return (div {
-          key: index
-          className: 'chart-vertical-line'
-        }, [
-          label
-          bar
-        ])
+      return (div {
+        key: index
+        className: 'chart-vertical-line'
+      }, [
+        label
+        bar
+      ])
 
     (div {
       className: 'chart chart-vertical-bars'

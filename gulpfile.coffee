@@ -4,6 +4,7 @@ concat = require('gulp-concat')
 uglify = require('gulp-uglify')
 sass = require('gulp-sass')
 plumber = require('gulp-plumber')
+coffeelint = require('gulp-coffeelint')
 
 SRC = './src'
 DEST = './dist'
@@ -16,7 +17,13 @@ PATH =
   stylesEntry: "#{SRC}/styles/index.scss"
   static: "#{SRC}/**/*.html"
 
-gulp.task 'scripts', ->
+gulp.task 'lint', ->
+  gulp.src(PATH.scripts)
+  .pipe plumber()
+  .pipe coffeelint()
+  .pipe coffeelint.reporter()
+
+gulp.task 'scripts', ['lint'], ->
   LIBS = require('./src/app/libs')
 
   gulp.src(PATH.scriptsEntry, read: false)
