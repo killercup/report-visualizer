@@ -29,7 +29,6 @@ module.exports = React.createClass
         if @props.sampleSnap?.reportImpetus is 2 #day
           chartType = 'PunchHourWeekday'
         else
-          console.log @props.aspect, @props.sampleSnap?.reportImpetus
           chartType = 'StackedByWeekday'
       else if @props.sample.answeredOptions
         chartType = 'Stacked'
