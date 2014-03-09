@@ -1,5 +1,24 @@
-.chart-stacked {
+.stacked-bar {
   text {
     fill: #fff;
+  }
+}
+
+.chart-stacked-bars {
+  line {
+    stroke: #000;
+    stroke-width: 1px;
+  }
+
+  .labels-y {
+    text {
+      text-anchor: end;
+    }
+  }
+
+  .labels-x {
+    text {
+      text-anchor: middle;
+    }
   }
 }

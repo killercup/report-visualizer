@@ -101,7 +101,7 @@ module.exports = React.createClass
       x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
       y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
 
-      (g {key: index, className: 'dot'}, [
+      (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
         (circle {
           key: 'dot'
           r: r

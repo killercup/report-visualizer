@@ -10,15 +10,15 @@ Chart = require('../charts/chart')
 Bar = require('../charts/bar')
 
 ###
-# @method Stacked Chart Component
-# @param {Object} distribution Mapping title to number
+# @method Stacked Bar Component
 ###
 module.exports = React.createClass
-  displayName: "StackedChart"
+  displayName: "StackedBar"
   getDefaultProps: ->
     width: 200
     height: 300
     fills: ['#042d42', '#0b84c2', '#075075', '#57bef2', '#326e8c']
+    barOrder: ([title, num]) -> -1 * num
 
   render: ->
     answerCount = l(@props.distribution)
@@ -34,7 +34,7 @@ module.exports = React.createClass
 
     bars = l(@props.distribution)
     .pairs()
-    .sortBy ([title, num]) -> -1 * num
+    .sortBy @props.barOrder
     .map ([title, num], index) =>
       height = @props.height * (num / answerCount)
 
@@ -55,9 +55,5 @@ module.exports = React.createClass
         label
       ])
 
-    (Chart {
-      width: @props.width, height: @props.height,
-      className: "chart chart-stacked"
-    },
-      bars
-    )
+    return (g {className: 'stacked-bar'}, bars.value())
+
