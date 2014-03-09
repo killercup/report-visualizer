@@ -22,13 +22,13 @@ module.exports = React.createClass
       l: 40
 
   render: ->
-    xValues = l(@props.distribution)
+    xValues = @props.xValues or l(@props.distribution)
       .map ([xVal, yVal, amount]) -> xVal
       .unique()
       .sortBy()
       .value()
 
-    yValues = l(@props.distribution)
+    yValues = @props.yValues or l(@props.distribution)
       .map ([xVal, yVal, amount]) -> yVal
       .unique()
       .sortBy()

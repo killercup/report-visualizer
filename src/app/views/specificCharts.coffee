@@ -62,6 +62,7 @@ SpecificCharts.PunchHourWeekday = React.createClass
   getDefaultProps: ->
     weekdays: ['7 Sun', '1 Mon', '2 Tue', '3 Wed', '4 Thu', '5 Fri', '6 Sat']
     criteria: "Yes"
+    yValues: [0..23]
     getIndex: (snap) ->
       d = new Date(snap.date)
       [d.getDay(), d.getHours()]
@@ -81,6 +82,7 @@ SpecificCharts.PunchHourWeekday = React.createClass
 
     (ChartTypes.PunchChart {
       aspect: @props.aspect
+      yValues: @props.yValues
       distribution: dist
       width: 2 * 260 + 40
       padding: l: 60, b: 30, r: 0, t: 0
