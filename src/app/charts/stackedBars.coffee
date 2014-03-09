@@ -13,6 +13,18 @@ Stacked = require('../charts/stacked')
 
 module.exports = React.createClass
   displayName: "StackedBarsChart"
+
+  propTypes:
+    width: React.PropTypes.number
+    height: React.PropTypes.number
+    padding: React.PropTypes.shape
+      t: React.PropTypes.number
+      r: React.PropTypes.number
+      b: React.PropTypes.number
+      l: React.PropTypes.number
+    xValues: React.PropTypes.array
+    distribution: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
+
   getDefaultProps: ->
     width: 2 * 260 + 40
     height: 300

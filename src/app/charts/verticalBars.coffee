@@ -8,6 +8,13 @@ Bar = require('../charts/bar')
 
 module.exports = React.createClass
   displayName: "VerticalBarChart"
+
+  propTypes:
+    width: React.PropTypes.number
+    height: React.PropTypes.number
+    lineHeight: React.PropTypes.number
+    # distribution: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
+
   getDefaultProps: ->
     width: 200
     height: 300
@@ -37,7 +44,7 @@ module.exports = React.createClass
       }, [])
 
       return (div {
-        key: index
+        key: "#{title}"
         className: 'chart-vertical-line'
       }, [
         label

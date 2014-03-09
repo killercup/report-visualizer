@@ -4,6 +4,12 @@ React = require('react')
 
 module.exports = React.createClass
   displayName: "Tooltip"
+
+  propTypes:
+    x: React.PropTypes.number
+    y: React.PropTypes.number
+    label: React.PropTypes.string
+
   getDefaultProps: ->
     x: 0
     y: 0

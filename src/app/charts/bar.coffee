@@ -5,6 +5,7 @@ l = require('lodash')
 
 module.exports = React.createClass
   displayName: "Bar"
+
   getDefaultProps: ->
     width: 0
     height: 0

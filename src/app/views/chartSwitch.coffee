@@ -15,9 +15,6 @@ module.exports = React.createClass
 
   getDefaultProps: ->
     width: 260
-    extraClasses: ''
-    overlay: false
-    sampleImpetus: 0
 
   getInitialState: ->
     punchChartAble = /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
@@ -37,6 +34,7 @@ module.exports = React.createClass
 
     chartType: chartType
     punchChartAble: punchChartAble
+    overlay: false
 
   handleChartTypeChange: ->
     @setState

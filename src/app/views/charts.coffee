@@ -9,6 +9,7 @@ extras = require('./extraCharts')
 
 module.exports = React.createClass
   displayName: "ChartsView"
+
   render: ->
     responses = l(@props.snapshots)
       .pluck('responses')

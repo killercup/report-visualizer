@@ -12,6 +12,19 @@ Tooltip = require('./tooltip')
 ###
 module.exports = React.createClass
   displayName: "PunchChart"
+
+  propTypes:
+    width: React.PropTypes.number
+    height: React.PropTypes.number
+    padding: React.PropTypes.shape
+      t: React.PropTypes.number
+      r: React.PropTypes.number
+      b: React.PropTypes.number
+      l: React.PropTypes.number
+    distribution: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
+    xValues: React.PropTypes.array
+    yValues: React.PropTypes.array
+
   getDefaultProps: ->
     width: 200
     height: 300

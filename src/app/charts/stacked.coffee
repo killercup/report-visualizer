@@ -14,6 +14,14 @@ Bar = require('../charts/bar')
 ###
 module.exports = React.createClass
   displayName: "StackedBar"
+
+  propTypes:
+    width: React.PropTypes.number
+    height: React.PropTypes.number
+    fills: React.PropTypes.arrayOf(React.PropTypes.string)
+    barOrder: React.PropTypes.func
+    distribution: React.PropTypes.object.isRequired
+
   getDefaultProps: ->
     width: 200
     height: 300
