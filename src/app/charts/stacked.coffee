@@ -1,7 +1,7 @@
 ###
 # # Stacked Chart
 ###
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {g, text} = React.DOM
@@ -29,7 +29,7 @@ module.exports = React.createClass
     barOrder: ([title, num]) -> -1 * num
 
   render: ->
-    answerCount = l(@props.distribution)
+    answerCount = L(@props.distribution)
       .reduce ((memo, x) -> memo + x), 0
 
     getFill = do =>
@@ -40,7 +40,7 @@ module.exports = React.createClass
 
     offset = 0
 
-    bars = l(@props.distribution)
+    bars = L(@props.distribution)
     .pairs()
     .sortBy @props.barOrder
     .map ([title, num], index) =>
@@ -65,6 +65,7 @@ module.exports = React.createClass
         bar
         label
       ])
+    .toArray()
 
-    return (g {className: 'stacked-bar'}, bars.value())
+    return (g {className: 'stacked-bar'}, bars)
 

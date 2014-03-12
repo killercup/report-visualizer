@@ -1,4 +1,3 @@
-l = require('lodash')
 React = require('react')
 
 ChartContainer = require('./chartSwitch')

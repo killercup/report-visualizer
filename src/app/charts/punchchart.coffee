@@ -1,4 +1,4 @@
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {g, text, circle, line} = React.DOM
@@ -35,20 +35,22 @@ module.exports = React.createClass
       l: 40
 
   render: ->
-    xValues = @props.xValues or l(@props.distribution)
+    throw new Error("no distribution") unless @props.distribution.length
+
+    xValues = @props.xValues or L(@props.distribution)
       .map ([xVal, yVal, amount]) -> xVal
-      .unique()
+      .uniq()
       .sortBy()
-      .value()
+      .toArray()
 
-    yValues = @props.yValues or l(@props.distribution)
+    yValues = @props.yValues or L(@props.distribution)
       .map ([xVal, yVal, amount]) -> yVal
-      .unique()
+      .uniq()
       .sortBy()
-      .value()
+      .toArray()
 
-    amountMin = l.min(@props.distribution, ([xVal, yVal, amount]) -> amount)[2]
-    amountMax = l.max(@props.distribution, ([xVal, yVal, amount]) -> amount)[2]
+    amountMin = L(@props.distribution).min(([xVal, yVal, amount]) -> amount)[2]
+    amountMax = L(@props.distribution).max(([xVal, yVal, amount]) -> amount)[2]
 
     pad = @props.padding
     inner =
@@ -75,35 +77,35 @@ module.exports = React.createClass
       transform: "translate(0.5,0.5)"
     })
 
-    yMarkers = l.map yValues, (name, index) ->
+    yMarkers = yValues.map (name, index) ->
       (line {
         key: index
         x1: pad.l - 5, y1: yScale(index + 1) - (heightPerItem / 2)
         x2: pad.l + 5, y2: yScale(index + 1) - (heightPerItem / 2)
       })
 
-    yLabels = l.map yValues, (name='', index) ->
+    yLabels = yValues.map (name='', index) ->
       (text {
         key: index
         x: pad.l - 10
         y: yScale(index + 1) - (heightPerItem / 2) + 5
       }, name)
 
-    xMarkers = l.map xValues, (name, index) =>
+    xMarkers = xValues.map (name, index) =>
       (line {
         key: index
         x1: xScale(index) + (withPerItem / 2), y1: @props.height - pad.b - 5
         x2: xScale(index) + (withPerItem / 2), y2: @props.height - pad.b + 5
       })
 
-    xLabels = l.map xValues, (name='', index) =>
+    xLabels = xValues.map (name='', index) =>
       (text {
         key: index
         x: xScale(index) + (withPerItem / 2)
         y: @props.height - pad.b + 20
       }, name.replace(/^(\d*) /, ''))
 
-    dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
+    dots = @props.distribution.map ([xVal, yVal, amount], index) ->
       return unless amount > 0
       r = Math.max 5,
         (maxRadius * (amount - amountMin) /
@@ -111,8 +113,8 @@ module.exports = React.createClass
 
       r = 5 if isNaN(r)
 
-      x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
-      y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
+      x = (withPerItem   / 2) + xScale xValues.indexOf(xVal)
+      y = (heightPerItem / 2) + yScale yValues.indexOf(yVal)
 
       (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
         (circle {

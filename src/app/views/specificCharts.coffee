@@ -1,4 +1,4 @@
-_ = require('lodash')
+L = require('lazy')
 React = require('react')
 
 ChartTypes = require('../charts')
@@ -15,7 +15,9 @@ SpecificCharts.Stacked = React.createClass
     if @props.distribution
       props = @props
     else
-      props = _.defaults(D.getDistribution(@props.responses, @props.aspect), @props)
+      props = L(D.getDistribution(@props.responses, @props.aspect))
+        .defaults(@props)
+        .toObject()
 
     (ChartTypes.StackedBar props, [])
 
@@ -28,17 +30,17 @@ SpecificCharts.StackedByWeekday = React.createClass
       d.getDay()
 
   render: ->
-    props = _.clone(@props)
-    snaps = _.filter(@props.snapshots, (snap) -> _.isString(snap.date))
+    props = L({}).defaults(@props).toObject()
+    snaps = @props.snapshots.filter (snap) -> typeof snap.date is 'string'
 
     responsesObject = {}
-    responses = _(@props.snapshots)
+    responses = L(@props.snapshots)
       .pluck('responses')
       .flatten()
       .where(questionPrompt: @props.aspect)
       .map(D.getAnswersFromResponse)
-      .unique()
-      .sort()
+      .uniq()
+      .sortBy()
       .each (r) ->
         responsesObject[r] = 0
 
@@ -48,13 +50,13 @@ SpecificCharts.StackedByWeekday = React.createClass
       @props.aspect
     )
 
-    props.distribution = _(props.distribution)
+    props.distribution = L(props.distribution)
     .map ([key, answerCount]) ->
-      [key, _.defaults(answerCount, responsesObject)]
+      [key, L(answerCount).defaults(responsesObject).toObject()]
     .sortBy ([key, a]) -> key
-    .value()
+    .toArray()
 
-    props.xValues or= _.sortBy @props.weekdays
+    props.xValues or= @props.weekdays.sort()
     props.width = 2 * 260 + 40
 
     (ChartTypes.StackedBars props, [])
@@ -66,7 +68,9 @@ SpecificCharts.VerticalBars = React.createClass
     if @props.distribution
       props = @props
     else
-      props = _.defaults(D.getDistribution(@props.responses, @props.aspect), @props)
+      props = L(D.getDistribution(@props.responses, @props.aspect))
+        .defaults(@props)
+        .toObject()
 
     (ChartTypes.VerticalBars props, [])
 
@@ -86,13 +90,13 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
     getIndex = @props.getIndex
     counting = (i) => i is @props.criteria
 
-    snaps = _.filter @props.snapshots, (snap) ->
+    snaps = @props.snapshots.filter (snap) ->
       # only reports in newer format
-      snap.reportImpetus and _.isString(snap.date)
+      snap.reportImpetus and (typeof snap.date is 'string')
 
-    dist = _(D.aggregatePunch snaps, getIndex, @props.aspect, counting)
+    dist = L(D.aggregatePunch snaps, getIndex, @props.aspect, counting)
       .map @props.entryToLabels
-      .value()
+      .toArray()
 
     (ChartTypes.PunchChart {
       aspect: @props.aspect
@@ -116,13 +120,12 @@ SpecificCharts.PunchHourWeekday = React.createClass
     getIndex = @props.getIndex
     counting = (i) => i is @props.criteria
 
-    snaps = _.filter @props.snapshots, (snap) ->
+    snaps = @props.snapshots.filter (snap) ->
       # only reports in newer format
-      _.isString(snap.date)
+      typeof snap.date is 'string'
 
-    dist = _(D.aggregatePunch snaps, getIndex, @props.aspect, counting)
+    dist = D.aggregatePunch(snaps, getIndex, @props.aspect, counting)
       .map @props.entryToLabels
-      .value()
 
     (ChartTypes.PunchChart {
       aspect: @props.aspect

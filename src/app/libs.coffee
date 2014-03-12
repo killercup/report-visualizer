@@ -14,10 +14,13 @@ bowerLibs =
   # d3:
   #   path: "#{PATH.bower}d3/d3.min.js"
   #   exports: 'd3'
-  lodash:
-    path: "#{PATH.bower}lodash/dist/lodash.min.js"
-    exports: '_'
-    alias: 'lodash'
+  'lazy':
+    path: "#{PATH.bower}lazy.js/lazy.js"
+    exports: 'Lazy'
+  # 'lodash':
+  #   path: "#{PATH.bower}lodash/dist/lodash.min.js"
+  #   exports: '_'
+  #   alias: 'lodash'
 
 module.exports = npmLibs.concat Object.keys(bowerLibs)
 module.exports.npmLibs = npmLibs

@@ -3,18 +3,18 @@
 #
 # cf. [Reporter Save File Schema](https://gist.github.com/dbreunig/9315705)
 ###
-l = require('lodash')
+L = require('lazy')
 
 exports = module.exports
 
 exports.getAnswersFromResponse = (r) ->
   val = r.answeredOptions or r.tokens
   val or= r.numericResponse or r.textResponse or r.locationResponse?.text
-  val = [val] unless l.isArray(val)
+  val = [val] unless Array.isArray(val)
   return val
 
-exports.getAnswerCount = (responses, filter=_.identity) ->
-  l(responses)
+exports.getAnswerCount = (responses, filter=L.identity) ->
+  L(responses)
   .reduce ((memo, response) ->
     for answer in exports.getAnswersFromResponse(response)
       continue unless filter(answer)
@@ -25,24 +25,25 @@ exports.getAnswerCount = (responses, filter=_.identity) ->
 
 exports.getDistribution = (responses, aspect) ->
   aspect: aspect
-  distribution: exports.getAnswerCount l(responses).where questionPrompt: aspect
+  distribution: exports.getAnswerCount L(responses).where(questionPrompt: aspect)
 
 exports.getGroupedDistribution = (snapshots, grouping, aspect) ->
-  l(snapshots)
+  L(snapshots)
   .map (snap) ->
     date: snap.date
-    response: l.find(snap.responses, questionPrompt: aspect)
+    response: L(snap.responses).findWhere(questionPrompt: aspect)
   .reject (snap) -> not snap.date or not snap.response
   .groupBy grouping
   .pairs()
   .map ([key, responses]) ->
-    [key, exports.getAnswerCount(_.pluck responses, 'response')]
-  .value()
-
+    return [
+      key
+      exports.getAnswerCount L(responses).pluck('response').toArray()
+    ]
+  .toArray()
 
 exports.connectionsDistribution = (snapshots, aspect) ->
-  aspect: aspect
-  distribution: l(snapshots)
+  distribution = L(snapshots)
   .pluck "connection"
   .map (val) ->
     return 'Cell' if val is 0
@@ -54,25 +55,29 @@ exports.connectionsDistribution = (snapshots, aspect) ->
     return memo
   ), {}
 
+  return {
+    aspect: aspect
+    distribution: distribution
+  }
+
 exports.aggregateWithIndex = (snapshots, getIndex, getValues, reduceValues) ->
-  l(snapshots)
+  L(snapshots)
   .reject (item) -> not getValues(item)
   .groupBy (item) -> JSON.stringify getIndex(item)
   .pairs()
   .map ([key, items]) ->
     index = getIndex items[0]
-    items = reduceValues _.map items, (item) -> getValues(item)
-    _.flatten [index, items]
-  .value()
+    items = reduceValues items.map (item) -> getValues(item)
+    L([index, items]).flatten().toArray()
+  .toArray()
 
 exports.aggregatePunch = (snapshots, getIndex, aspect, answerFilter) ->
   getValues = (snap) ->
-    res = _.where snap.responses, questionPrompt: aspect
-    # _.find getAnswersFromResponse(res), answerFilter
-    res?[0]?.answeredOptions?[0]
+    res = L(snap.responses).findWhere(questionPrompt: aspect)
+    res?.answeredOptions?[0]
 
   reduceValues = (vals) ->
-    l(vals)
+    L(vals)
     .reduce ((memo, item) ->
       return memo + 1 if answerFilter(item)
       return memo

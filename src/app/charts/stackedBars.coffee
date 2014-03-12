@@ -3,7 +3,7 @@
 #
 # Display multiple stacked bars next to each other.
 ###
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {line, g, text} = React.DOM
@@ -35,11 +35,11 @@ module.exports = React.createClass
       l: 0
 
   render: ->
-    xValues = @props.xValues or l(@props.distribution)
+    xValues = @props.xValues or L(@props.distribution)
       .map ([xVal, amount]) -> xVal
-      .unique()
+      .uniq()
       .sortBy()
-      .value()
+      .toArray()
 
     pad = @props.padding
     inner =
@@ -57,21 +57,21 @@ module.exports = React.createClass
       transform: "translate(0.5,0.5)"
     })
 
-    xMarkers = l.map xValues, (name, index) =>
+    xMarkers = xValues.map (name, index) =>
       (line {
         key: index
         x1: xScale(index) + (withPerItem / 2), y1: @props.height - pad.b - 5
         x2: xScale(index) + (withPerItem / 2), y2: @props.height - pad.b + 5
       })
 
-    xLabels = l.map xValues, (name='', index) =>
+    xLabels = xValues.map (name='', index) =>
       (text {
         key: index
         x: xScale(index) + (withPerItem / 2)
         y: @props.height - pad.b + 20
       }, name.replace(/^(\d*) /, ''))
 
-    bars = l.map @props.distribution, ([xVal, distribution], index) ->
+    bars = @props.distribution.map ([xVal, distribution], index) ->
       (g {
         key: "#{xVal}"
         transform: "translate(#{xScale(index)},0)"

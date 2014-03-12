@@ -1,4 +1,4 @@
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {div, p} = React.DOM
@@ -21,10 +21,9 @@ module.exports = React.createClass
     lineHeight: 5
 
   render: ->
-    maxNum = _.max @props.distribution, _.identity
-    # minNum = _.min @props.distribution, _.identity
+    maxNum = L(@props.distribution).max(L.identity)
 
-    lines = l(@props.distribution)
+    lines = L(@props.distribution)
     .pairs()
     .sortBy ([title, num]) -> -1 * num
     .map ([title, num], index) =>
@@ -50,6 +49,7 @@ module.exports = React.createClass
         label
         bar
       ])
+    .toArray()
 
     (div {
       className: 'chart chart-vertical-bars'

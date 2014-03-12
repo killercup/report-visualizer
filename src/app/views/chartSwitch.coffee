@@ -1,4 +1,4 @@
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {div, h2, p, button, select, option, label} = React.DOM
@@ -46,10 +46,11 @@ module.exports = React.createClass
   render: ->
     SpecificChart = SpecificCharts[@state.chartType] or SpecificCharts.VerticalBars
 
-    chartOptions = _(SpecificCharts).keys()
+    chartOptions = L(SpecificCharts)
+      .keys()
       .reject (i) => (isPunchChart i) and not @state.punchChartAble
       .map (key) -> (option {key: key, value: key}, key)
-      .value()
+      .toArray()
 
     classes = React.addons.classSet
       'chart-container': true,
@@ -65,7 +66,7 @@ module.exports = React.createClass
           }, "Settings")
           (h2 {key: 'heading'}, @props.aspect)
           (div {key: 'chart', className: 'chart-box'}, [
-            (SpecificChart _.defaults({key: 'chart'}, @props), [])
+            (SpecificChart L({key: 'chart'}).defaults(@props).toObject(), [])
           ])
         ])
         (div {key: 'overlay', className: 'overlay'}, [

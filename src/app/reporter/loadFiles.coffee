@@ -1,4 +1,4 @@
-l = require('lodash')
+L = require('lazy')
 Q = require('q')
 React = require('react')
 
@@ -34,12 +34,12 @@ module.exports = React.createClass
     files = event.target.files
     return console.log("No files") unless files?.length
 
-    Q.all l.map files, loadJSONViaFileAPI
+    Q.all Array::slice.call(files).map loadJSONViaFileAPI
     .then (files) =>
-      items = l(files)
+      items = L(files)
         .map (file) -> file.snapshots
         .flatten()
-        .value()
+        .toArray()
       try
         data.hasData = true
         data.snapshots = items

@@ -1,4 +1,4 @@
-l = require('lodash')
+L = require('lazy')
 React = require('react')
 
 {section} = React.DOM
@@ -11,20 +11,20 @@ module.exports = React.createClass
   displayName: "ChartsView"
 
   render: ->
-    responses = l(@props.snapshots)
+    responses = L(@props.snapshots)
       .pluck('responses')
       .flatten()
-      .value()
+      .toArray()
 
-    questions = l(responses)
+    questions = L(responses)
       .pluck('questionPrompt')
-      .unique()
-      .sort()
-      .value()
+      .uniq()
+      .sortBy()
+      .toArray()
 
     charts = questions.map (question, index) =>
       for snap in @props.snapshots by -1
-        if s = l.find(snap.responses, questionPrompt: question)
+        if s = L(snap.responses).findWhere(questionPrompt: question)
           sample = s
           sampleSnap = snap
           break
