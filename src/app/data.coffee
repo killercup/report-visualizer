@@ -2,7 +2,6 @@
 
 try
   snaps = JSON.parse(window.sessionStorage.snapshots)
-  console.log "Got #{snaps.length} snapshots from local storage."
 catch e
   snaps = []
 

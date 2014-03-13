@@ -11,7 +11,6 @@ module.exports = React.createClass
   displayName: "ChartsView"
 
   render: ->
-    console.profile?('Render ALL the charts')
     responses = l(@props.snapshots)
       .pluck('responses')
       .flatten()
@@ -42,5 +41,4 @@ module.exports = React.createClass
     }, [])
 
     res = (section {}, charts)
-    console.profileEnd?('Render ALL the charts')
     res
