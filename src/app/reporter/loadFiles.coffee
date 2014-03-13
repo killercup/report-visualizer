@@ -2,7 +2,7 @@ l = require('lodash')
 Q = require('q')
 React = require('react')
 
-{input} = React.DOM
+{input, em} = React.DOM
 
 data = require('../data')
 
@@ -29,10 +29,16 @@ loadJSONViaFileAPI = (file) ->
 
 module.exports = React.createClass
   displayName: "LoadFiles"
+
+  getInitialState: ->
+    working: false
+
   loadFiles: (event) ->
     event.preventDefault()
     files = event.target.files
     return console.log("No files") unless files?.length
+
+    @setState working: true
 
     Q.all l.map files, loadJSONViaFileAPI
     .then (files) =>
@@ -52,4 +58,7 @@ module.exports = React.createClass
       console.error err
 
   render: ->
-    (input {key: 1, type: 'file', multiple: true, onChange: @loadFiles})
+    if @state.working
+      (em {className: 'loading'}, "Processing files...")
+    else
+      (input {type: 'file', multiple: true, onChange: @loadFiles})
