@@ -28,15 +28,16 @@ layout = React.createClass
     (section {className: 'main'}, [
       (require('./views/header') {key: 'header'})
       if @state.hasData then [
-        (section {key: 'meta', className: 'box meta'}, [
-          (p {key: 'meta-p'}, [
-            "#{@props.snapshots.length} snapshots loaded. "
-            (a {key: "clearCache", href: '#clear', onClick: @clearCache}, "Clear Cache")
-          ])
-        ])
-        (require('./views/charts') {key: 'charts', snapshots: @props.snapshots})
+        (require('./views/stats') {
+          key: 'stats', snapshots: @props.snapshots, clearCache: @clearCache
+        })
+        (require('./views/charts') {
+          key: 'charts', snapshots: @props.snapshots
+        })
       ] else [
-        (require('./views/start') {key: 'start', gotData: @gotData})
+        (require('./views/start') {
+          key: 'start', gotData: @gotData
+        })
       ]
     ])
 
