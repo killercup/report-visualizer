@@ -100,13 +100,13 @@ a {
 
 .chart-punchchart {
   shape-rendering: geometricPrecision; }
-  .chart-punchchart circle {
+  .chart-punchchart circle, .chart-punchchart rect {
     fill: #0b84c2; }
   .chart-punchchart .tooltip {
     opacity: 0;
     transition-property: opacity;
     transition-duration: 0.3s; }
-  .chart-punchchart .dot:hover circle {
+  .chart-punchchart .dot:hover circle, .chart-punchchart .dot:hover rect {
     fill: #326e8c; }
   .chart-punchchart .dot:hover .tooltip {
     opacity: 1; }
