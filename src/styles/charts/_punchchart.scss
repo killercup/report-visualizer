@@ -1,7 +1,7 @@
 .chart-punchchart {
   shape-rendering: geometricPrecision;
 
-  circle {
+  circle, rect {
     fill: nth($colors, 2);
   }
 
@@ -13,7 +13,7 @@
   }
 
   .dot:hover {
-    circle {
+    circle, rect {
       fill: nth($colors, 5);
     }
 

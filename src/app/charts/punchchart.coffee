@@ -1,7 +1,7 @@
 l = require('lodash')
 React = require('react')
 
-{g, text, circle, line} = React.DOM
+{g, text, circle, rect, line} = React.DOM
 
 Chart = require('./chart')
 Tooltip = require('./tooltip')
@@ -26,6 +26,7 @@ module.exports = React.createClass
     yValues: React.PropTypes.array
 
   getDefaultProps: ->
+    punchStyle: 'dots'
     width: 200
     height: 300
     padding:
@@ -103,30 +104,53 @@ module.exports = React.createClass
         y: @props.height - pad.b + 20
       }, name.replace(/^(\d*) /, ''))
 
-    dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
-      return unless amount > 0
-      r = Math.max 5,
-        (maxRadius * (amount - amountMin) /
-          Math.max(1, (amountMax - amountMin)))
+    if @props.punchStyle is 'bars'
+      dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
+        return unless amount > 0
+        h = heightPerItem - 4
+        w = Math.max 2, (Math.floor (withPerItem - 4) * ((amount - amountMin) / amountMax))
+        x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
+        y = (h / 2) + yScale _.indexOf(yValues, yVal)
 
-      r = 5 if isNaN(r)
+        (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
+          (rect {
+            key: 'bar'
+            height: h
+            width: w
+            transform: "translate(#{x - Math.floor(w / 2) + 0.5}, #{y - 0.5})"
+            title: "#{amount}"
+          })
+          (Tooltip {
+            key: 'tip',
+            x: x, y: y + h/2,
+            label: "#{amount}"
+          })
+        ])
+    else
+      dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
+        return unless amount > 0
+        r = Math.max 5,
+          (maxRadius * (amount - amountMin) /
+            Math.max(1, (amountMax - amountMin)))
 
-      x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
-      y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
+        r = 5 if isNaN(r)
 
-      (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
-        (circle {
-          key: 'dot'
-          r: r
-          transform: "translate(#{x}, #{y})"
-          title: "#{amount}"
-        })
-        (Tooltip {
-          key: 'tip',
-          x: x, y: y-r,
-          label: "#{amount}"
-        })
-      ])
+        x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
+        y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
+
+        (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
+          (circle {
+            key: 'dot'
+            r: r
+            transform: "translate(#{x}, #{y})"
+            title: "#{amount}"
+          })
+          (Tooltip {
+            key: 'tip',
+            x: x, y: y-r,
+            label: "#{amount}"
+          })
+        ])
 
     (Chart {
       width: @props.width, height: @props.height,

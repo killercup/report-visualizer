@@ -94,12 +94,11 @@ SpecificCharts.PunchImpetusWeekday = React.createClass
       .map @props.entryToLabels
       .value()
 
-    (ChartTypes.PunchChart {
-      aspect: @props.aspect
+    (ChartTypes.PunchChart _.defaults({
       distribution: dist
       width: 2 * 260 + 40
       padding: l: 60, b: 30, r: 0, t: 0
-    })
+    }, @props))
 
 SpecificCharts.PunchHourWeekday = React.createClass
   displayName: "PunchHourWeekdayReporterChart"
@@ -124,12 +123,10 @@ SpecificCharts.PunchHourWeekday = React.createClass
       .map @props.entryToLabels
       .value()
 
-    (ChartTypes.PunchChart {
-      aspect: @props.aspect
-      yValues: @props.yValues
+    (ChartTypes.PunchChart _.defaults({
       distribution: dist
       width: 2 * 260 + 40
       padding: l: 60, b: 30, r: 0, t: 0
-    })
+    }, @props))
 
 module.exports = SpecificCharts

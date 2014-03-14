@@ -33,6 +33,7 @@ module.exports = React.createClass
         chartType = 'VerticalBars'
 
     chartType: chartType
+    punchStyle: 'dots'
     punchChartAble: punchChartAble
     overlay: false
 
@@ -65,7 +66,10 @@ module.exports = React.createClass
           }, "Settings")
           (h2 {key: 'heading'}, @props.aspect)
           (div {key: 'chart', className: 'chart-box'}, [
-            (SpecificChart _.defaults({key: 'chart'}, @props), [])
+            (SpecificChart _.defaults({
+              key: 'chart'
+              punchStyle: @state.punchStyle
+            }, @props), [])
           ])
         ])
         (div {key: 'overlay', className: 'overlay'}, [
@@ -81,6 +85,15 @@ module.exports = React.createClass
               (select {key: 'select', valueLink: @linkState('chartType')}, chartOptions)
             ])
           ])
+          if (isPunchChart @state.chartType)
+            (p {key: 'settings-punch'}, [
+              (label {key: 'label'}, [
+                "Punch Style ",
+                (select {
+                  key: 'select', valueLink: @linkState('punchStyle')
+                }, ['dots', 'bars'].map (i) -> (option {key: i, value: i}, i))
+              ])
+            ])
         ])
       ])
     ])
