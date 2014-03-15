@@ -6,6 +6,8 @@ React = require('react')
 SpecificCharts = require('./specificCharts')
 Overlay = require('./overlay')
 
+data = require('../data')
+
 isPunchChart = (chartType) ->
   /^Punch/.test chartType
 
@@ -33,7 +35,7 @@ module.exports = React.createClass
         chartType = 'VerticalBars'
 
     chartType: chartType
-    punchStyle: 'dots'
+    punchStyle: @props.punchStyle or 'dots'
     punchChartAble: punchChartAble
     overlay: false
 
@@ -97,3 +99,8 @@ module.exports = React.createClass
         ])
       ])
     ])
+
+  componentDidUpdate: ->
+    data.chartSettings.set @props.aspect,
+      chartType:  @state.chartType
+      punchStyle: @state.punchStyle
