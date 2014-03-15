@@ -48,8 +48,7 @@ module.exports = React.createClass
         .value()
       try
         data.hasData = true
-        data.snapshots = items
-        data._save()
+        data.snapshots.setAll(items)
         @props.gotData()
       catch e
         console.error e.stack

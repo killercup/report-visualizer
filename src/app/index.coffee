@@ -16,12 +16,12 @@ layout = React.createClass
     hasData: !!data.hasData
 
   gotData: ->
-    @replaceProps snapshots: data.snapshots
+    @replaceProps snapshots: data.snapshots.get()
     @setState hasData: true
 
   clearCache: (event) ->
     event.preventDefault()
-    data._clear()
+    data.snapshots.clear()
     window.location.reload()
 
   render: ->
@@ -43,7 +43,7 @@ layout = React.createClass
 
 renderMain = ->
   React.renderComponent(
-    (layout {snapshots: data.snapshots}),
+    (layout {snapshots: data.snapshots.get()}),
     document.getElementById('container')
   )
 

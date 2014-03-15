@@ -3,6 +3,7 @@ React = require('react')
 {section, p, a} = React.DOM
 
 module.exports = React.createClass
+  displayName: 'StatsView'
   render: ->
     days = _(@props.snapshots)
     .map (snap) ->
@@ -19,6 +20,8 @@ module.exports = React.createClass
       (p {key: 'meta-p'}, [
         "#{@props.snapshots.length} snapshots covering #{days.length} days loaded. "
         "Your first report was on #{minDay}. "
-        (a {key: "clearCache", href: '#clear', onClick: @props.clearCache}, "Clear Cache")
+        (a {key: "clearCache", href: '#clear', onClick: @props.clearCache},
+          "Load new data"
+        )
       ])
     ])

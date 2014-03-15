@@ -4,6 +4,7 @@ React = require('react')
 LoadFiles = require('../reporter/loadFiles')
 
 module.exports = React.createClass
+  displayName: 'StartView'
   render: ->
     (div {className: 'box text-box load-files'}, [
       (h2 {key: 'headline'}, "Display your reports")
