@@ -1,7 +1,7 @@
 l = require('lodash')
 React = require('react')
 
-{section, h2} = React.DOM
+{section, h2, small} = React.DOM
 
 D = require('../reporter/distributions')
 ChartContainer = require('./chartSwitch')
@@ -61,8 +61,11 @@ module.exports = React.createClass
     @charts = charts
 
     res = (section {className: 'charts'}, [
-      (h2 {key: 'charts-headline', className: 'box'},
-        "Your #{questions.length} Questions"
-      )
+      (h2 {key: 'charts-headline', className: 'box'}, [
+        "Your #{questions.length} Questions "
+        (small {key: 's'},
+          "and #{responses.length} answers"
+        )
+      ])
     ].concat(charts))
     res

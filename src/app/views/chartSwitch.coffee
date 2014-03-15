@@ -1,7 +1,7 @@
 l = require('lodash')
 React = require('react')
 
-{div, h2, p, button, select, option, label} = React.DOM
+{div, article, header, h2, p, button, select, option, label} = React.DOM
 
 SpecificCharts = require('./specificCharts')
 Overlay = require('./overlay')
@@ -60,13 +60,15 @@ module.exports = React.createClass
 
     (div {className: classes}, [
       (Overlay {key: 'over', active: @state.overlay}, [
-        (div {key: 'main', className: 'main'}, [
-          (button {
-            key: 'settings'
-            className: 'toggle-settings'
-            onClick: @toggleOverlay
-          }, "Settings")
-          (h2 {key: 'heading'}, @props.aspect)
+        (article {key: 'main', className: 'main'}, [
+          (header {key: 'h'}, [
+            (button {
+              key: 'settings'
+              className: 'toggle-settings'
+              onClick: @toggleOverlay
+            }, "Settings")
+            (h2 {key: 'heading'}, @props.aspect)
+          ])
           (div {key: 'chart', className: 'chart-box'}, [
             (SpecificChart _.defaults({
               key: 'chart'
@@ -75,12 +77,14 @@ module.exports = React.createClass
           ])
         ])
         (div {key: 'overlay', className: 'overlay'}, [
-          (button {
-            key: 'settings'
-            className: 'toggle-settings'
-            onClick: @toggleOverlay
-          }, "Done")
-          (h2 {key: 'heading'}, @props.aspect)
+          (header {key: 'h'}, [
+            (button {
+              key: 'settings'
+              className: 'toggle-settings'
+              onClick: @toggleOverlay
+            }, "Done")
+            (h2 {key: 'heading'}, @props.aspect)
+          ])
           (p {key: 'settings-1'}, [
             (label {key: 'label'}, [
               "Chart Type ",

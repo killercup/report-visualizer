@@ -29,10 +29,6 @@ a {
   }
 }
 
-%spaced-nicely {
-  margin: 0 20px 30px;
-}
-
 %spaced-on-the-inside {
   padding: 10px 20px;
   margin: 0 0 30px;
@@ -71,5 +67,6 @@ a {
   padding: 20px;
 }
 
-@import "charts/index";
+@import "grid";
 @import "overlay";
+@import "charts/index";
