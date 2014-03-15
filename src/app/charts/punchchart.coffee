@@ -7,6 +7,19 @@ Chart = require('./chart')
 Tooltip = require('./tooltip')
 
 ###
+# @method Get Unique Values, Sorted
+# @param {Array}    items
+# @param {Function} [select] Mapping method
+# @param {Function} [sort]   Sorting method
+###
+uniqValues = (items, select=l.identity, sort) ->
+  l(items)
+  .map select
+  .unique()
+  .sortBy(sort)
+  .value()
+
+###
 # @method Punchchart Component
 # @param {Array} distribution `[xValue, yValue, amount]`
 ###
@@ -36,29 +49,22 @@ module.exports = React.createClass
       l: 40
 
   render: ->
-    xValues = @props.xValues or l(@props.distribution)
-      .map ([xVal, yVal, amount]) -> xVal
-      .unique()
-      .sortBy()
-      .value()
+    xValues = @props.xValues or uniqValues(@props.distribution, ([x, y, a]) -> x)
+    yValues = @props.yValues or uniqValues(@props.distribution, ([x, y, a]) -> y)
 
-    yValues = @props.yValues or l(@props.distribution)
-      .map ([xVal, yVal, amount]) -> yVal
-      .unique()
-      .sortBy()
-      .value()
-
-    amountMin = l.min(@props.distribution, ([xVal, yVal, amount]) -> amount)[2]
-    amountMax = l.max(@props.distribution, ([xVal, yVal, amount]) -> amount)[2]
+    amountMin = l.min(@props.distribution, ([x, y, a]) -> a)[2]
+    amountMax = l.max(@props.distribution, ([x, y, a]) -> a)[2]
 
     pad = @props.padding
     inner =
       height: @props.height - pad.t - pad.b
       width: @props.width - pad.l - pad.r
 
-    heightPerItem = Math.floor (inner.height) / yValues.length
-    withPerItem = Math.floor (inner.width) / xValues.length
-    maxRadius = Math.floor(Math.max(0, Math.min(heightPerItem, withPerItem)/2) * 0.9)
+    heightPerItem = Math.floor (inner.height / yValues.length)
+    withPerItem   = Math.floor (inner.width / xValues.length)
+    maxRadius     = Math.floor(
+      (Math.max 0, (Math.min heightPerItem, withPerItem) / 2) * 0.9
+    )
 
     yScale = (index) -> pad.t + heightPerItem * index
     xScale = (index) -> pad.l + withPerItem * index
@@ -76,28 +82,28 @@ module.exports = React.createClass
       transform: "translate(0.5,0.5)"
     })
 
-    yMarkers = l.map yValues, (name, index) ->
+    yMarkers = yValues.map (name, index) ->
       (line {
         key: index
         x1: pad.l - 5, y1: yScale(index + 1) - (heightPerItem / 2)
         x2: pad.l + 5, y2: yScale(index + 1) - (heightPerItem / 2)
       })
 
-    yLabels = l.map yValues, (name='', index) ->
+    yLabels = yValues.map (name='', index) ->
       (text {
         key: index
         x: pad.l - 10
         y: yScale(index + 1) - (heightPerItem / 2) + 5
       }, name)
 
-    xMarkers = l.map xValues, (name, index) =>
+    xMarkers = xValues.map (name, index) =>
       (line {
         key: index
         x1: xScale(index) + (withPerItem / 2), y1: @props.height - pad.b - 5
         x2: xScale(index) + (withPerItem / 2), y2: @props.height - pad.b + 5
       })
 
-    xLabels = l.map xValues, (name='', index) =>
+    xLabels = xValues.map (name='', index) =>
       (text {
         key: index
         x: xScale(index) + (withPerItem / 2)
@@ -105,12 +111,12 @@ module.exports = React.createClass
       }, name.replace(/^(\d*) /, ''))
 
     if @props.punchStyle is 'bars'
-      dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
+      dots = @props.distribution.map ([xVal, yVal, amount], index) ->
         return unless amount > 0
         h = heightPerItem - 4
         w = Math.max 2, (Math.floor (withPerItem - 4) * ((amount - amountMin) / amountMax))
-        x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
-        y = (h / 2) + yScale _.indexOf(yValues, yVal)
+        x = (withPerItem / 2) + xScale l.indexOf(xValues, xVal)
+        y = (h           / 2) + yScale l.indexOf(yValues, yVal)
 
         (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
           (rect {
@@ -122,12 +128,12 @@ module.exports = React.createClass
           })
           (Tooltip {
             key: 'tip',
-            x: x, y: y + h/2,
+            x: x, y: (y + h / 2),
             label: "#{amount}"
           })
         ])
     else
-      dots = l.map @props.distribution, ([xVal, yVal, amount], index) ->
+      dots = @props.distribution.map ([xVal, yVal, amount], index) ->
         return unless amount > 0
         r = Math.max 5,
           (maxRadius * (amount - amountMin) /
@@ -135,8 +141,8 @@ module.exports = React.createClass
 
         r = 5 if isNaN(r)
 
-        x = (withPerItem   / 2) + xScale _.indexOf(xValues, xVal)
-        y = (heightPerItem / 2) + yScale _.indexOf(yValues, yVal)
+        x = (withPerItem   / 2) + xScale l.indexOf(xValues, xVal)
+        y = (heightPerItem / 2) + yScale l.indexOf(yValues, yVal)
 
         (g {key: "#{xVal}-#{yVal}", className: 'dot'}, [
           (circle {

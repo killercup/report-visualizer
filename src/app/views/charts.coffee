@@ -40,5 +40,5 @@ module.exports = React.createClass
       snapshots: @props.snapshots
     }, [])
 
-    res = (section {}, charts)
+    res = (section {className: 'charts'}, charts)
     res
