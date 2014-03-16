@@ -35,7 +35,7 @@ module.exports = React.createClass
         chartType = 'VerticalBars'
 
     chartType: chartType
-    punchStyle: @props.punchStyle or 'dots'
+    punchStyle: @props.punchStyle
     punchChartAble: punchChartAble
     overlay: false
 
