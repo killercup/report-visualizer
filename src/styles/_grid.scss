@@ -1,9 +1,9 @@
-@mixin column($spacing: 40px) {
+@mixin column($spacing: 20px) {
   float: left;
   margin: 0 $spacing;
 }
 
-@mixin span($num, $width: 260px, $spacing: 40px) {
+@mixin span($num, $width: 260px, $spacing: 20px) {
   @include column($spacing);
-  width: ($num * $width) + (($num - 1) * $spacing);
+  width: ($num * $width) + ($num * $spacing);
 }

@@ -13,7 +13,6 @@ module.exports = React.createClass
     width: React.PropTypes.number
     height: React.PropTypes.number
     lineHeight: React.PropTypes.number
-    # distribution: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
 
   getDefaultProps: ->
     width: 200
@@ -22,7 +21,6 @@ module.exports = React.createClass
 
   render: ->
     maxNum = _.max @props.distribution, _.identity
-    # minNum = _.min @props.distribution, _.identity
 
     lines = l(@props.distribution)
     .pairs()
