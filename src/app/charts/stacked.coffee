@@ -25,7 +25,7 @@ module.exports = React.createClass
   getDefaultProps: ->
     width: 200
     height: 300
-    fills: ['#042d42', '#0b84c2', '#075075', '#57bef2', '#326e8c']
+    fills: require('./colors')
     barOrder: ([title, num]) -> -1 * num
 
   render: ->
