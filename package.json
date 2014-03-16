@@ -14,7 +14,8 @@
   "author": "Pascal Hertleif <killercup@gmail.com> (http://pascalhertleif.de/)",
   "license": "MIT",
   "dependencies": {
-    "q": "~1.0.0"
+    "q": "~1.0.0",
+    "underscore.string": "^2.3.3"
   },
   "devDependencies": {
     "coffeeify": "~0.6.0",

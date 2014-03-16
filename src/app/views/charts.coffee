@@ -1,7 +1,8 @@
 l = require('lodash')
+s = require('underscore.string')
 React = require('react')
 
-{section, h2, small} = React.DOM
+{section, p} = React.DOM
 
 D = require('../reporter/distributions')
 ChartContainer = require('./chartSwitch')
@@ -38,34 +39,37 @@ module.exports = React.createClass
 
     charts = questions.map (question, index) =>
       for snap in @props.snapshots by -1
-        if s = l.find(snap.responses, questionPrompt: question)
-          sample = s
+        if sam = l.find(snap.responses, questionPrompt: question)
+          sample = sam
           sampleSnap = snap
           break
 
       chartSettings = @state.chartSettings[question] or {}
 
+      slug = s.slugify question
+
       (ChartContainer {
-        key: index,
+        key: slug, id: slug,
         snapshots: @props.snapshots, aspect: question,
         responses: responses, sample: sample, sampleSnap: sampleSnap,
         chartType: chartSettings.chartType, punchStyle: chartSettings.punchStyle
       })
 
-    charts.push (extras.ConnectionChart {
-      key: charts.length
-      snapshots: @props.snapshots
-      aspect: "What's your internet connection?"
-    }, [])
+    do =>
+      question = "What's your internet connection?"
+      slug = s.slugify question
+
+      charts.push (extras.ConnectionChart {
+        key: charts.length, id: slug
+        snapshots: @props.snapshots
+        aspect: question
+      }, [])
 
     @charts = charts
 
     res = (section {className: 'charts'}, [
-      (h2 {key: 'charts-headline', className: 'box'}, [
-        "Your #{questions.length} Questions "
-        (small {key: 's'},
-          "and #{responses.length} answers"
-        )
+      (p {key: 'charts-headline', className: 'subtitle'}, [
+        "#{responses.length} Answers"
       ])
     ].concat(charts))
     res

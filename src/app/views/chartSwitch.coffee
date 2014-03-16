@@ -16,7 +16,7 @@ module.exports = React.createClass
   mixins: [React.addons.LinkedStateMixin]
 
   getDefaultProps: ->
-    width: 260
+    # width: 260
 
   getInitialState: ->
     punchChartAble = /^(Yes|No)$/.test @props.sample?.answeredOptions?[0]
@@ -58,7 +58,7 @@ module.exports = React.createClass
       'chart-container': true,
       'double': (isPunchChart @state.chartType) or (@state.chartType is 'StackedByWeekday')
 
-    (div {className: classes}, [
+    (div {className: classes, id: @props.id}, [
       (Overlay {key: 'over', active: @state.overlay}, [
         (article {key: 'main', className: 'main'}, [
           (header {key: 'h'}, [

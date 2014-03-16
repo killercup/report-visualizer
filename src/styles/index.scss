@@ -3,6 +3,7 @@
  */
 
 $colors: (#042d42, #0b84c2, #075075, #57bef2, #326e8c);
+@import "grid";
 
 * {
   margin: 0;
@@ -14,11 +15,6 @@ body {
   font-size: 14px;
   line-height: 1.4;
   color: #333;
-}
-
-section {
-  clear: both;
-  overflow: auto;
 }
 
 a {
@@ -53,6 +49,42 @@ a {
   }
 }
 
+#content {
+  overflow: auto;
+  // width: (3 * 260px) + (2 * 20px * 2);
+  margin: 0 auto;
+  display: flex;
+
+  > aside {
+    width: 260px;
+    padding: 0 40px;
+  }
+
+  > section {
+    flex: 1;
+  }
+
+  .subtitle {
+    font-style: italic;
+    padding: 10px;
+    color: #999;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+}
+
+.toc {
+  .subtitle {
+
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 6px;
+  }
+}
+
 .box {
   @extend %spaced-on-the-inside;
 }
@@ -67,6 +99,5 @@ a {
   padding: 20px;
 }
 
-@import "grid";
 @import "overlay";
 @import "charts/index";

@@ -6,7 +6,7 @@
 ###
 
 React = require('react')
-{section, div, h1, h2, p, a, code, img} = React.DOM
+{section, aside, div, h1, h2, p, a, code, img} = React.DOM
 
 data = require('./data')
 
@@ -31,9 +31,14 @@ layout = React.createClass
         (require('./views/stats') {
           key: 'stats', snapshots: @props.snapshots, clearCache: @clearCache
         })
-        (require('./views/charts') {
-          key: 'charts', snapshots: @props.snapshots
-        })
+        (div {key: 'm', id: 'content'}, [
+          (aside {key: 'a'}, [
+            (require('./views/toc') {key: 'toc', snapshots: @props.snapshots})
+          ])
+          (require('./views/charts') {
+            key: 'charts', snapshots: @props.snapshots
+          })
+        ])
       ] else [
         (require('./views/start') {
           key: 'start', gotData: @gotData
