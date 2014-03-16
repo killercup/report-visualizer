@@ -9,16 +9,11 @@ module.exports = React.createClass
         (a {
           key: 'flattr', className: 'flattr',
           href: 'http://flattr.com/thing/2729835/'
-        }, [
-          (img {
-            key: 'img',
-            src: 'http://api.flattr.com/button/flattr-badge-large.png'
-          })
-        ])
+        }, "Flattr this")
         (a {
           key: 'gh', className: 'gh',
           href: 'https://github.com/killercup/report-visualizer'
-        }, "Fork this on Github")
+        }, "Source Code on Github")
       ])
       (h1 {key: 'title'}, "Report Visualizer")
     ])
