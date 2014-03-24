@@ -1,8 +1,4 @@
 .charts {
-  h2 {
-    text-align: center;
-  }
-
   small {
     color: #999;
     font-weight: normal;
@@ -10,25 +6,24 @@
 }
 
 .chart-container {
-  @include span(1, 260px, 20px);
+  // @include span(1, 260px, 20px);
+  padding: 0 10px 30px;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 30px;
 
   &.double {
-    @include span(2, 260px, 20px);
+    // @include span(2, 260px, 20px);
   }
 
   header {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #eee;
-    padding: 10px 0 0;
     margin: 0 0 10px;
     background: #fff;
   }
 
   h2 {
-    font-size: 1.2em;
+    font-size: 1.4em;
     line-height: 1.6em;
-    min-height: 1.6em * 2;
+    // min-height: 1.6em * 2;
     padding: 0 4px 10px;
   }
 
@@ -58,7 +53,7 @@
 }
 
 .chart-box {
-  height: 305px;
+  // height: 305px;
   overflow: auto;
 
   svg {

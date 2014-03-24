@@ -1,6 +1,6 @@
 _ = require('lodash')
 React = require('react')
-{section, p, a} = React.DOM
+{aside, p, a} = React.DOM
 
 module.exports = React.createClass
   displayName: 'StatsView'
@@ -16,7 +16,7 @@ module.exports = React.createClass
 
     minDay = days.sort()[0]
 
-    (section {key: 'meta', className: 'box meta'}, [
+    (aside {key: 'meta', className: 'box meta', id: @props.id}, [
       (p {key: 'meta-p'}, [
         "#{@props.snapshots.length} snapshots covering #{days.length} days loaded. "
         "Your first report was on #{minDay}. "

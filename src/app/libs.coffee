@@ -4,6 +4,7 @@ PATH =
 
 npmLibs = [
   'q'
+  'underscore.string'
 ]
 
 bowerLibs =

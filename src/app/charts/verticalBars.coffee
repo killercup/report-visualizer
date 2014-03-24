@@ -15,12 +15,12 @@ module.exports = React.createClass
     lineHeight: React.PropTypes.number
 
   getDefaultProps: ->
-    width: 200
+    width: 500
     height: 300
     lineHeight: 5
 
   render: ->
-    maxNum = _.max @props.distribution, _.identity
+    maxNum = l.max @props.distribution, l.identity
 
     lines = l(@props.distribution)
     .pairs()

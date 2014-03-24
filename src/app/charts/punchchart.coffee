@@ -123,7 +123,9 @@ module.exports = React.createClass
             key: 'bar'
             height: h
             width: w
-            transform: "translate(#{x - Math.floor(w / 2)}, #{y - 0.5})"
+            x: x - Math.floor(w / 2)
+            y: y - 0.5
+            # transform: "translate(#{x - Math.floor(w / 2)}, #{y - 0.5})"
             title: "#{amount}"
           })
           (Tooltip {

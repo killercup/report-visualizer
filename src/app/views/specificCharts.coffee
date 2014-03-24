@@ -106,6 +106,7 @@ SpecificCharts.PunchHourWeekday = React.createClass
     weekdays: numberedWeekdays
     criteria: "Yes"
     yValues: [0..23]
+    height: 400
     punchStyle: 'bars'
     getIndex: (snap) ->
       d = new Date(snap.date)
@@ -126,7 +127,7 @@ SpecificCharts.PunchHourWeekday = React.createClass
 
     (ChartTypes.PunchChart _.defaults({
       distribution: dist
-      width: 2 * 260 + 40
+      width: 600
       padding: l: 40, b: 30, r: 0, t: 0
     }, @props))
 

@@ -1,10 +1,10 @@
 React = require('react')
-{div, h1, a, img} = React.DOM
+{header, div, h1, a, img} = React.DOM
 
 module.exports = React.createClass
   displayName: 'TopBar'
   render: ->
-    (div {key: 'top-bar', className: 'top-bar'}, [
+    (header {key: 'top-bar', className: 'top-bar'}, [
       (div {key: 'r', className: 'right'}, [
         (a {
           key: 'flattr', className: 'flattr',
