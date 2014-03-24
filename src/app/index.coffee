@@ -29,7 +29,8 @@ layout = React.createClass
       (require('./views/header') {key: 'header'})
       if @state.hasData then [
         (require('./views/stats') {
-          key: 'stats', snapshots: @props.snapshots, clearCache: @clearCache
+          key: 'stats',
+          snapshots: @props.snapshots, clearCache: @clearCache
         })
         (div {key: 'm', id: 'content'}, [
           (aside {key: 'a'}, [

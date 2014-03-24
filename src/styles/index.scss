@@ -30,6 +30,15 @@ a {
   margin: 0 0 30px;
 }
 
+// #main {
+//   display: flex;
+//   flex-direction: column;
+
+//   header, aside {
+//     display: block;
+//   }
+// }
+
 .top-bar {
   @extend %spaced-on-the-inside;
   background: #efefef;
@@ -50,9 +59,6 @@ a {
 }
 
 #content {
-  overflow: auto;
-  // width: (3 * 260px) + (2 * 20px * 2);
-  margin: 0 auto;
   display: flex;
 
   > aside {
